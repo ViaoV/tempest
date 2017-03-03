@@ -2,14 +2,21 @@ import Inferno from 'inferno';
 import Component from 'inferno-component';
 import { Link } from 'inferno-router';
 
-import {auth, session} from './services/Session';
+import { auth, session } from './services/Session';
+
+import './css/status-bar.css';
 
 class App extends Component {
 
   constructor(props) {
     super(props);
-    this.login()
-    this.session = session;
+    this.state = {
+      indicators: {},
+    };
+    session.on('state', (state) => {
+      console.log(state);
+      this.setState(state)
+    });
   }
 
   login() {
@@ -21,11 +28,14 @@ class App extends Component {
           console.log('Session validated');
           auth.disconnect();
           session.connect(key);
-        });
-      });
-    });
+        }).catch(this.loginError);
+      }).catch(this.loginError);
+    }).catch(this.loginError);
   }
 
+  loginError(e) {
+    console.error('Login error: ' + e);
+  }
 
   render() {
     return (
@@ -69,15 +79,77 @@ class App extends Component {
         </div>
         <footer class='toolbar toolbar-footer'>
           <div class='toolbar-actions'>
-            <button class='btn btn-default btn-dropdown pull-right'>
-             <span class='icon icon-light-up'></span>
-             <span class='icon icon-connect'></span>
-           </button>
+            <StatusBarLabelItem label='L' value={this.state.left} />
+            <StatusBarLabelItem label='R' value={this.state.right} />
+            <StatusBarLabelItem label='SP' value={this.state.spell} />
+            <div className='status-seperator-item'></div>
+            <StatusBarTextItem active={this.state.indicators.grouped}>
+              <i className='fa fa-fw fa-users'></i>
+            </StatusBarTextItem>
+            <StatusBarTextItem active={this.state.indicators.hidden}>
+              <i className='fa fa-fw fa-user-secret'></i>
+            </StatusBarTextItem>
+            <StatusBarTextItem active={this.state.indicators.invisible}>
+              <i className='fa fa-fw fa-eye-slash'></i>
+            </StatusBarTextItem>
+            <StatusBarTextItem active={this.state.indicators.bleeding}>
+              <i className='fa fa-fw fa-heart'></i>
+            </StatusBarTextItem>
+            <StatusBarTextItem active={this.state.indicators.stunned}>
+              <i className='fa fa-fw fa-star'></i>
+            </StatusBarTextItem>
+            <StatusBarTextItem active={this.state.indicators.webbed}>
+              <i className='fa fa-fw fa-bolt'></i>
+            </StatusBarTextItem>
+            <StatusBarTextItem active={this.state.indicators.dead}>
+              <i className='fa fa-fw fa-times'></i>
+            </StatusBarTextItem>
+            <div className='status-seperator-item'></div>
+            <StatusBarProgress value='40' cls='blue'/>
+            <StatusBarProgress value='80' cls='red'/>
+            <StatusBarProgress value='20' cls='yellow'/>
           </div>
         </footer>
       </div>
     );
   }
 }
+
+class StatusBarTextItem extends Component {
+  render() {
+    var cls = 'btn status-item';
+    if (this.props.active) {
+      cls += ' active';
+    }
+    return (
+      <div className={cls}>{this.props.children}</div>
+    );
+  }
+}
+
+class StatusBarLabelItem extends Component {
+  render() {
+    return (
+      <div className='btn btn-default status-label-item'>
+        <span class='label'>{this.props.label}</span>
+        {this.props.value}
+      </div>
+    );
+  }
+}
+
+class StatusBarProgress extends Component {
+  render() {
+    var cls = 'inner-bar ' + this.props.cls;
+    return (
+      <div className='status-progress'>
+        <div className={cls} style={{width: this.props.value + '%'}}></div>
+      </div>
+    );
+  }
+}
+
+
+
 
 export default App;

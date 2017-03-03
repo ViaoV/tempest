@@ -1,8 +1,11 @@
 {
   "name": "tempest",
   "version": "0.1.0",
+  "author": "Joe Bellus",
   "private": true,
   "devDependencies": {
+    "electron": "^1.6.1",
+    "electron-builder": "^14.5.3",
     "inferno-scripts": "0.13.2"
   },
   "homepage": "./",
@@ -20,6 +23,30 @@
     "build": "inferno-scripts build",
     "test": "inferno-scripts test --env=jsdom",
     "eject": "inferno-scripts eject",
-    "watch": "nodemon -C -x 'node_modules/inferno-scripts/bin/inferno-scripts.js build' -w ./ -i build"
+    "watch": "nodemon -C -x 'node_modules/inferno-scripts/bin/inferno-scripts.js build' -w ./ -i build",
+    "pack": "build --dir",
+    "dist": "build"
+  },
+  "build": {
+    "appId": "tempest.5sigma.io",
+    "asar": true,
+    "mac": {
+      "category": "tempest.5sigma.io"
+    },
+    "directories": {
+      "buildResources": "build_resources",
+      "app": "./"
+    },
+    "files": [
+      "**/*",
+      "!dist${/*}",
+      "!src/**/*",
+      "!build_resources${/*}",
+      "!db/**/*",
+      "!log.txt",
+      "!yarn.lock",
+      "!Procfile",
+      "build/**/*"
+    ]
   }
 }

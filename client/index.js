@@ -1,6 +1,6 @@
 const EventEmitter = require('events');
 const net = require('net');
-var inquirer = require('inquirer');
+const fs = require('fs');
 var htmlparser = require('htmlparser2');
 
 class GameSession extends EventEmitter {
@@ -135,7 +135,7 @@ class GameSession extends EventEmitter {
     }
 
     if (!this.insideTag && text.trim() !== '' && this.tagDepth == 0) {
-      this.emit('message', this.msgEvent, text);
+      this.emit('message',  Object.assign({}, this.msgEvent), text);
     }
   }
 
@@ -147,6 +147,12 @@ class GameSession extends EventEmitter {
       this.send('<c>\r\n');
       this.emit('connected');
     });
+  }
+
+  debugLoad() {
+    fs.readFile('log.txt', ((err, data) => {
+      this.parse(data.toString());
+    }));
   }
 
   onData(data) {
