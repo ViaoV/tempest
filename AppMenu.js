@@ -1,3 +1,5 @@
+const { shell } = require('electron');
+
 const menu = [
   {
     label: 'Tempest Client',
@@ -14,6 +16,38 @@ const menu = [
     ],
   },
   {
+    label: 'Edit',
+    submenu: [
+      {
+        role: 'undo',
+      },
+      {
+        role: 'redo',
+      },
+      {
+        type: 'separator',
+      },
+      {
+        role: 'cut',
+      },
+      {
+        role: 'copy',
+      },
+      {
+        role: 'paste',
+      },
+      {
+        role: 'pasteandmatchstyle',
+      },
+      {
+        role: 'delete',
+      },
+      {
+        role: 'selectall',
+      },
+    ],
+  },
+  {
     label: 'Scripts',
     submenu: [
       {
@@ -23,6 +57,17 @@ const menu = [
             shell.showItemInFolder(scriptsDir);
           });
         },
+      },
+    ],
+  },
+  {
+    role: 'window',
+    submenu: [
+      {
+        role: 'minimize',
+      },
+      {
+        role: 'close',
       },
     ],
   },

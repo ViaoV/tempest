@@ -3,7 +3,6 @@ import Component from 'inferno-component';
 
 import '../css/modal.css';
 
-
 export class PromptModal extends Component {
 
   constructor(props) {
@@ -11,34 +10,35 @@ export class PromptModal extends Component {
     this.state = {
       show: true,
       value: props.value,
-    }
+    };
   }
 
   getClass() {
     if (this.props.show) {
       return 'window modal prompt show';
     }
+
     return 'window modal prompt';
   }
 
   close() {
     this.props.show = false;
-    this.setState({show: false});
+    this.setState({ show: false });
     if (this.props.cancel) {
-      this.props.cancel()
+      this.props.cancel();
     }
   }
 
   confirm() {
     this.props.show = false;
-    this.setState({show: false});
+    this.setState({ show: false });
     if (this.props.confirm) {
       this.props.confirm(this.state.value);
     }
   }
 
   valueChange(e) {
-    this.setState({value: e.target.value});
+    this.setState({ value: e.target.value });
   }
 
   render() {
@@ -63,6 +63,6 @@ export class PromptModal extends Component {
       </div>
       </footer>
     </div>
-  )
+  );
   }
 }

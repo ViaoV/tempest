@@ -2,11 +2,11 @@
   position: absolute;
   top: 0;
   left: 0;
-  background: #f5f5f5;
-  border-bottom: 1px solid #ccc;
-  color: #444;
-  height: 25px;
-  line-height: 25px;
+  background: #121212;
+  border-bottom: 1px solid #000;
+  color: #eee;
+  height: 45px;
+  line-height: 45px;
   width: 100%;
 }
 
@@ -32,7 +32,7 @@
   background: transparent;
   border: none;
   font-size: 12px;
-  color: #888;
+  color: #fff;
   cursor: pointer;
   font-weight: bold;
   outline: none;
@@ -42,12 +42,12 @@
   background: transparent;
   border: none;
   font-size: 12px;
-  color: #000;
+  color: #fff;;
 }
 
 .sub-toolbar button:active {
   background: transparent;
-  color: #000;
+  color: #fff;
   border: none;
   outline: none;
 }
@@ -58,11 +58,4 @@
   top: 26px;
   height: calc(100% - 25px);
   width: 100%;
-}
-
-.sub-toolbar input {
-  font-size: 12px;
-  padding: 4px 2px;
-  border: 1px solid #eee;
-  height: 20px;
 }

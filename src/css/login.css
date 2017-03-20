@@ -1,6 +1,18 @@
+.login-wrapper {
+  padding: 50px;
+  width: 100%;
+  height: 100%;
+  background: #262626;
+}
+
 .login {
+  padding: 20px 25px;
+  background: #222;
+  border-radius: 4px;
+  margin: auto auto;
+  margin-top: 55px;
   width: 400px;
-  margin: auto;
+  color: #f5f5f5;
 }
 
 .login h1 {
@@ -9,4 +21,92 @@
 
 .login input, .login input:focus {
   outline: none;
+}
+
+.login .session-list {
+  margin: 0;
+  padding: 0;
+  max-height: 300px;
+  overflow-y: scroll;
+}
+
+.login .session-list .item {
+  clear: both;
+  height: 32px;
+  line-height: 32px;
+  border-radius: 4px;
+  background: #333;
+  margin-bottom: 10px;
+  color: #f5f5f5;
+  border-bottom: 1px solid #777;
+}
+
+.login .session-list .item .details {
+  transition: background-color 0.5s;
+  float: left;
+  height: 32px;
+  color: #eee;
+  padding: 0 10px;
+  line-height: 32px;
+}
+
+.login .session-list .item .details .glyph {
+  transition: color 0.2s;
+  float: left;
+  width: 42px;
+  height: 32px;
+  line-height: 32px;
+  text-align: center;
+  color: #ccc;
+  border-right: 1px solid #282828;
+  margin-right: 15px;
+}
+
+.login .session-list .item .details:hover .glyph {
+  color: #009900;
+}
+
+.login .session-list .item .details .name {
+  font-weight: bold;
+  display: inline-block;
+  margin-right: 10px;
+  color: #fff;
+}
+
+.login .session-list .item .details .username {
+  color: #eee;
+}
+
+.login .session-list .item .tools {
+  transition: background-color 0.5s;
+  float: right;
+  border-left: 1px solid #282828;
+  text-align: center;
+  height: 32px;
+  width: 42px;
+  line-height: 32px;
+}
+
+.login .session-list .item .tools:hover {
+  background: #666;
+  color: #fff;
+}
+
+
+.login .character-select {
+  margin-bottom: 25px;
+}
+
+.login .character-select li {
+  color: #fff;
+  margin: auto auto;
+  padding: 5px 15px;
+  border-radius: 4px;
+  background: #000;
+  margin-top: 15px;
+  cursor: pointer;
+}
+
+.login .character-select li:hover  {
+  background: #444;
 }
