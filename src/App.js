@@ -1,40 +1,86 @@
 import Inferno from 'inferno';
 import Component from 'inferno-component';
 import { Link } from 'inferno-router';
+import _ from 'lodash';
 
-import { auth, session } from './services/Session';
+import { auth, session, scriptEngine } from './services/Session';
 
 import './css/status-bar.css';
+import './css/photon-fills.css';
+import './css/app.css';
 
 class App extends Component {
 
-  constructor(props) {
+  constructor(props, { router }) {
     super(props);
+    this.router = router;
     this.state = {
       indicators: {},
+      activeScripts: [],
+      showSideMenu: false,
     };
     session.on('state', (state) => {
-      console.log(state);
-      this.setState(state)
+      this.setState(state);
     });
+
+    scriptEngine.on('script.loaded', () => {
+      this.setState({ activeScripts: scriptEngine.scripts.map(i => i.name) });
+    });
+    scriptEngine.on('script.unloaded', () => {
+      this.setState({ activeScripts: scriptEngine.scripts.map(i => i.name) });
+    });
+
+    auth.on('connected', () => {
+      this.setState({'showSideMenu': true})
+    })
   }
 
-  login() {
-    auth.authenticate('', '').then(() => {
-      console.log('logged in');
-      auth.listCharacters().then((characters) => {
-        console.log('game list ', characters);
-        auth.playCharacter(characters[0].code).then((key) => {
-          console.log('Session validated');
-          auth.disconnect();
-          session.connect(key);
-        }).catch(this.loginError);
-      }).catch(this.loginError);
-    }).catch(this.loginError);
+  activeClass(route) {
+    var active = (this.router.location.pathname.indexOf(route) > -1);
+    return (active) ? 'nav-group-item active' : 'nav-group-item';
   }
 
-  loginError(e) {
-    console.error('Login error: ' + e);
+
+  renderSidebar() {
+    if (!this.state.showSideMenu) {
+      return '';
+    } else {
+      return (
+        <div class='pane-sm sidebar'>
+          <nav class='nav-group'>
+            <Link to='/game' className={this.activeClass.bind(this)('/game')}>
+              <i class='fa fa-terminal'></i>
+              Game
+            </Link>
+            <h5 class='nav-group-title'>Tools</h5>
+            <Link to='/scripts' className={this.activeClass.bind(this)('/scripts')}>
+              <i class='fa fa-code'></i>
+              Scripts
+            </Link>
+            <a class='nav-group-item'>
+              <i class='fa fa-link'></i> Triggers
+            </a>
+            <Link to='/map' className={this.activeClass.bind(this)('/map')}>
+            <span class='icon icon-map'></span>
+              Map
+            </Link>
+          </nav>
+            <h5 class='nav-group-title'>Active Scripts</h5>
+            {this.state.activeScripts.map(i=>
+              <a onClick={() => scriptEngine.unloadScript(i)} class='nav-group-item'>
+                <i class='fa fa-circle'></i> {i}
+              </a>
+            )}
+            <h5 class='nav-group-title'>Configuration</h5>
+            <a class='nav-group-item'>
+              <i class='icon icon-mute'></i> Ignores
+            </a>
+            <a class='nav-group-item'>
+              <i class='fa fa-paint-brush'></i> Highlights
+            </a>
+        </div>
+      );
+    }
   }
 
   render() {
@@ -42,38 +88,10 @@ class App extends Component {
       <div class='window'>
         <header class='toolbar toolbar-header' style='-webkit-app-region: drag'>
           <h1 class='title'>Tempest Client</h1>
-          <div class='toolbar-actions'>
-            <div class='btn-group'>
-              <button class='btn btn-default'>
-                <span class='icon icon-plus'></span>
-              </button>
-            </div>
-          </div>
         </header>
         <div class='window-content'>
           <div class='pane-group'>
-            <div class='pane-sm sidebar'>
-              <nav class='nav-group'>
-                <h5 class='nav-group-title'>Sessions</h5>
-                <Link to='/game' className='nav-group-item active'>
-                  <span class='icon icon-block'></span>
-                  Wyloth
-                </Link>
-                <h5 class='nav-group-title'>Tools</h5>
-                <a class='nav-group-item'>
-                  <span class='icon icon-code'></span>
-                  Scripts
-                </a>
-                <h5 class='nav-group-title'>Active Scripts</h5>
-                <a class='nav-group-item'>
-                  Hunting
-                </a>
-                <h5 class='nav-group-title'>Plugins</h5>
-                <a class='nav-group-item'>
-                  Moon Watcher
-                </a>
-              </nav>
-            </div>
+            {this.renderSidebar()}
             <div class='pane'>{ this.props.children }</div>
           </div>
         </div>
@@ -121,6 +139,7 @@ class StatusBarTextItem extends Component {
     if (this.props.active) {
       cls += ' active';
     }
+
     return (
       <div className={cls}>{this.props.children}</div>
     );
@@ -143,13 +162,10 @@ class StatusBarProgress extends Component {
     var cls = 'inner-bar ' + this.props.cls;
     return (
       <div className='status-progress'>
-        <div className={cls} style={{width: this.props.value + '%'}}></div>
+        <div className={cls} style={{ width: this.props.value + '%' }}></div>
       </div>
     );
   }
 }
-
-
-
 
 export default App;

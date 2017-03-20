@@ -1,0 +1,4 @@
+table tr.selected td {
+  background-color: #116cd6;
+  color: #fff;
+}

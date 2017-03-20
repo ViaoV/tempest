@@ -1,7 +1,13 @@
 const { ipcMain } = require('electron');
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, shell, Menu } = require('electron');
+
+const fs = require('fs');
 const path = require('path');
 const url = require('url');
+const files = require('./lib/files');
+const DataConfig = require('./lib/data/DataConfig');
+DataConfig.dataPath = path.join(app.getPath('userData'), 'data');
+files.ensureDirectory(DataConfig.dataPath);
 
 app.on('window-all-closed', function () {
   if (process.platform != 'darwin') {
@@ -10,6 +16,7 @@ app.on('window-all-closed', function () {
 });
 
 app.on('ready', function () {
+  Menu.setApplicationMenu(Menu.buildFromTemplate(require('./AppMenu')));
   var mainWindow = new BrowserWindow({
     height: 768,
     width: 1024,

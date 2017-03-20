@@ -1,0 +1,12 @@
+.login {
+  width: 400px;
+  margin: auto;
+}
+
+.login h1 {
+  font-weight: 300;
+}
+
+.login input, .login input:focus {
+  outline: none;
+}
