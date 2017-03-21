@@ -40,6 +40,7 @@ input.form-control:focus {
   background: #222;
   color: #fcfcfc;
   border: none;
+  transition: background-color .3s;
 }
 .btn:hover {
   background: #555;
@@ -49,6 +50,10 @@ input.form-control:focus {
   background: #444;
   border: none;
   color: #fff;
+}
+
+.btn.btn-primary:hover {
+  background: #555;
 }
 
 .btn.btn-negative {

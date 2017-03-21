@@ -4,18 +4,17 @@ import ace from 'brace';
 import 'brace/mode/coffee';
 import 'brace/theme/github';
 import { scriptEngine } from '../../services/Session';
-import {PromptModal} from '../Modal';
+import { PromptModal } from '../Modal';
 
 import '../../css/sub-toolbar.css';
 
-
 export default class ScriptEditor extends Component {
-  constructor(props, {router}) {
+  constructor(props, { router }) {
     super(props);
     this.router = router;
     this.state = {
       scriptName: this.props.params.script,
-    }
+    };
   }
 
   componentDidMount() {
@@ -23,6 +22,7 @@ export default class ScriptEditor extends Component {
     this.editor.getSession().setMode('ace/mode/coffee');
     this.editor.setTheme('ace/theme/github');
     scriptEngine.readScript(this.state.scriptName).then((script) => {
+      console.log(script);
       this.editor.setValue(script, -1);
     });
   }
@@ -39,15 +39,14 @@ export default class ScriptEditor extends Component {
   }
 
   showRename() {
-    this.setState({showRenameModal: true});
+    this.setState({ showRenameModal: true });
   }
 
   doRename(val) {
     scriptEngine.renameScript(this.state.scriptName, val).then(() => {
-      this.setState({scriptName: val, showRenameModal: false});
+      this.setState({ scriptName: val, showRenameModal: false });
     });
   }
-
 
   render() {
     return (
