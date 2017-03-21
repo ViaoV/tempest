@@ -23,9 +23,7 @@ export default class ScriptList extends Component {
   }
 
   loadScripts() {
-    scriptEngine.listScriptNames((s) => {
-      this.setState({ scripts: s });
-    });
+    scriptEngine.listScriptNames().then((s) => this.setState({ scripts: s }));
   }
 
   editScript() {
