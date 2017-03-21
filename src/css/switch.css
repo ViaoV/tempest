@@ -1,0 +1,29 @@
+.switch {
+  transition: all 0.2s;
+  padding: 6px 20px;
+  background: #444;
+  color: #fff;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.switch.active {
+  background: #040;
+}
+
+.switch.active:hover {
+  background: #070;
+}
+
+.switch.inactive {
+  background: #400;
+}
+
+.switch.inactive:hover {
+  background: #700;
+}
+
+.switch i {
+  display: inline-block;
+  margin-right: 8px;
+}

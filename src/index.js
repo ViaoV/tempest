@@ -7,6 +7,7 @@ import ScriptList from './components/ScriptList';
 import MapView from './components/Map';
 import ScriptEditor from './components/editor/Editor';
 import Login from './components/Login';
+import GameWrapper from './components/game_wrapper';
 
 const browserHistory = createHashHistory();
 
@@ -14,10 +15,12 @@ const routes = (
   <Router history={ browserHistory }>
     <Route component={ App }>
       <IndexRoute component={Login}></IndexRoute>
-      <Route path='/game' component={ GameWindow }></Route>
-      <Route path='/scripts/:script' component={ ScriptEditor }></Route>
-      <Route path='/scripts' component={ ScriptList }></Route>
-      <Route path='/map' component={ MapView }></Route>
+      <Route path='/' component={ GameWrapper }>
+        <Route path='/game' component={ GameWindow }></Route>
+        <Route path='/scripts/:script' component={ ScriptEditor }></Route>
+        <Route path='/scripts' component={ ScriptList }></Route>
+        <Route path='/map' component={ MapView }></Route>
+      </Route>
     </Route>
   </Router>
 );

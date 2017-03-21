@@ -2,13 +2,13 @@ import Inferno from 'inferno';
 import Component from 'inferno-component';
 import { Link } from 'inferno-router';
 import { scriptEngine } from '../services/Session';
-import {PromptModal} from './Modal';
+import { PromptModal } from './Modal';
 
 import '../css/sub-toolbar.css';
 
 export default class ScriptList extends Component {
 
-  constructor(props, {router}) {
+  constructor(props, { router }) {
     super(props);
     this.router = router;
     this.state = {
@@ -24,38 +24,41 @@ export default class ScriptList extends Component {
 
   loadScripts() {
     scriptEngine.listScriptNames((s) => {
-      this.setState({scripts: s});
+      this.setState({ scripts: s });
     });
   }
 
   editScript() {
     if (!this.state.selectedScript) { return; }
+
     this.router.push('/scripts/' + this.state.selectedScript);
   }
 
   runScript() {
     if (!this.state.selectedScript) { return; }
+
     scriptEngine.loadScript(this.state.selectedScript);
     this.router.push('/game');
   }
 
   deleteScript() {
     if (!this.state.selectedScript) { return; }
+
     scriptEngine.deleteScript(this.state.selectedScript).then(() => {
       this.loadScripts();
     });
   }
 
   newScript() {
-    this.setState({showNewModal: true});
+    this.setState({ showNewModal: true });
   }
 
   selectScript(script) {
-    this.setState({selectedScript: script});
+    this.setState({ selectedScript: script });
   }
 
   newScriptConfirm(val) {
-    this.setState({showNewModal: false});
+    this.setState({ showNewModal: false });
     scriptEngine.newScript(val).then(() => {
       this.router.push('/scripts/' + val);
     });
@@ -91,7 +94,7 @@ export default class ScriptList extends Component {
             {this.state.scripts.map(script =>
               <tr
                 className={(this.state.selectedScript == script) ? 'selected' : ''}
-                onClick={() => this.setState({selectedScript: script})}>
+                onClick={() => this.setState({ selectedScript: script })}>
                 <td>{script}</td>
               </tr>
             )}

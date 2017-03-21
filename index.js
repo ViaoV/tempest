@@ -21,6 +21,7 @@ app.on('ready', function () {
     height: 768,
     width: 1024,
     frame: false,
+    backgroundColor: '#262626',
   });
 
   mainWindow.webContents.openDevTools({ mode: 'undocked' });
