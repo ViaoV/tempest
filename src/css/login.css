@@ -98,3 +98,7 @@
 .login .no-sessions {
   text-align: centers
 }
+
+.login .buttons {
+  margin-top: 25px;
+}

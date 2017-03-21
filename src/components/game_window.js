@@ -58,13 +58,12 @@ export default class GameWindow extends Component {
       return true;
     }
 
-
     return false;
   }
 
   onInputKeyDown(e) {
     if (e.keyCode == 27) {
-      e.preventDefault()
+      e.preventDefault();
       console.log('clearing pending commands');
       session.clearPendingActions();
       console.log('sendQueue ', session.sendBuffer.length);
@@ -75,17 +74,18 @@ export default class GameWindow extends Component {
       if (this.inputHistoryIndex  < this.inputHistory.length - 1) {
         this.inputHistoryIndex = this.inputHistoryIndex + 1;
         if (this.inputHistoryIndex == -1) {
-          this.setState({inputText: '' });
+          this.setState({ inputText: '' });
         } else {
-          this.setState({inputText: this.inputHistory[this.inputHistoryIndex]});
+          this.setState({ inputText: this.inputHistory[this.inputHistoryIndex] });
         }
       }
     }
+
     if (e.keyCode == 40) {
       e.preventDefault();
       if (this.inputHistoryIndex > -1) {
         this.inputHistoryIndex = this.inputHistoryIndex - 1;
-        this.setState({inputText: this.inputHistory[this.inputHistoryIndex]});
+        this.setState({ inputText: this.inputHistory[this.inputHistoryIndex] });
       }
     }
   }
@@ -96,9 +96,11 @@ export default class GameWindow extends Component {
       e.preventDefault();
       return false;
     }
+
     if (!this.state.inputText) {
       return;
     }
+
     var msg = this.state.inputText.trim();
     if (e.keyCode === 13) {
       if (msg[0] == '.') {
@@ -106,7 +108,7 @@ export default class GameWindow extends Component {
         var scriptName = tokens.shift();
         scriptEngine.loadScript(scriptName, tokens);
       } else {
-        this.inputHistory.unshift(msg)
+        this.inputHistory.unshift(msg);
         session.sendNow(msg + '\n');
       }
 
@@ -140,22 +142,22 @@ export default class GameWindow extends Component {
           <div class='bar health'>
             <span class='text'>Health</span>
             <div class='progress'
-              style={{width: this.state.gameState.resources.health + '%'}}></div>
+              style={{ width: this.state.gameState.resources.health + '%' }}></div>
           </div>
           <div class='bar mana'>
             <span class='text'>Mana</span>
             <div class='progress'
-              style={{width: this.state.gameState.resources.mana + '%'}}></div>
+              style={{ width: this.state.gameState.resources.mana + '%' }}></div>
           </div>
           <div class='bar stamina'>
             <span class='text'>Stamina</span>
             <div class='progress'
-              style={{width: this.state.gameState.resources.stamina + '%'}}></div>
+              style={{ width: this.state.gameState.resources.stamina + '%' }}></div>
           </div>
           <div class='bar concentration'>
             <span class='text'>Concentration</span>
             <div class='progress'
-              style={{width: this.state.gameState.resources.concentration + '%'}}></div>
+              style={{ width: this.state.gameState.resources.concentration + '%' }}></div>
           </div>
         </div>
         <div class='game-input'>

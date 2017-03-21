@@ -1,3 +1,7 @@
+.pane-group {
+  overflow: hidden;
+}
+
 .nav-group i.fa {
   margin-right: 6px;
 }

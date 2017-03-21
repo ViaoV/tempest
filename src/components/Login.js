@@ -3,7 +3,7 @@ import Component from 'inferno-component';
 import { auth, session } from '../services/Session';
 import ErrorMessage from './ErrorMessage';
 import Switch from './switch';
-import {ConfirmModal} from './Modal';
+import { ConfirmModal, WaitModal, MessageModal } from './Modal';
 
 import '../css/login.css';
 
@@ -14,15 +14,25 @@ export default class Login extends Component {
     this.router = router;
     this.state = {
       step: 'login',
-      loginError: undefined,
+      loginError: false,
       username: '',
       password: '',
+      waitMessage: '',
+      waitShow: '',
+      waitTitle: '',
     };
   }
 
   doLogin(username, password) {
+    this.setState({
+      waitShow: true,
+      waitTitle: 'Logging in',
+    });
     this.setState({ username, password });
     auth.authenticate(this.state.username, this.state.password).then(() => {
+      this.setState({
+        waitTitle: 'Credentials validated. Retrieving characters.',
+      });
       auth.listCharacters().then((characters) => {
         this.setState({ step: 'characterselect', characters });
       }).catch(this.setLoginError.bind(this));
@@ -30,6 +40,7 @@ export default class Login extends Component {
   }
 
   doSessionLogin(s) {
+    this.setState({ loginError: undefined });
     auth.authenticate(s.get('username'), s.get('password')).then(() => {
       auth.listCharacters().then((characters) => {
         auth.playCharacter(s.get('characterCode')).then((key) => {
@@ -51,7 +62,7 @@ export default class Login extends Component {
           this.state.password,
           c.name,
           c.code,
-        );
+        ).catch(() => {});
       }
 
       this.router.push('/game');
@@ -59,8 +70,13 @@ export default class Login extends Component {
   }
 
   setLoginError(e) {
-    console.log('login error', e);
-    this.setState({ loginError: e });
+    this.setState({ waitShow: false });
+    this.setState({ loginError: true });
+  }
+
+  disconnect() {
+    auth.disconnect();
+    this.setState({ step: 'login' });
   }
 
   render() {
@@ -71,6 +87,11 @@ export default class Login extends Component {
           <LoginForm onLogin={this.doLogin.bind(this)}/>
           <hr/>
           <SessionList onSessionSelect={this.doSessionLogin.bind(this)}/>
+          <WaitModal show={this.state.waitShow} title={this.state.waitTitle}>
+            {this.state.waitMessage}
+          </WaitModal>
+          <MessageModal show={this.state.loginError}
+            title="Login Error">Could not login.</MessageModal>
         </div>
       );
     }
@@ -78,6 +99,7 @@ export default class Login extends Component {
     if (this.state.step === 'characterselect') {
       content = (
         <CharacterSelect
+          onCancel={this.disconnect.bind(this)}
           characters={this.state.characters}
           onSelect={this.doSelect.bind(this)}/>
       );
@@ -139,7 +161,7 @@ class LoginForm extends Component {
         <button class='btn btn-primary pull-right btn-large'
           onClick={this.loginPressed.bind(this)}>
             Login
-          </button>
+        </button>
       </div>
     );
   }
@@ -149,6 +171,12 @@ class CharacterSelect extends Component {
   constructor(props) {
     super(props);
     this.state = { save: false };
+  }
+
+  onCancel() {
+    if (this.props.onCancel) {
+      this.props.onCancel();
+    }
   }
 
   render() {
@@ -173,6 +201,12 @@ class CharacterSelect extends Component {
         <Switch label='Save Session'
           checked={this.state.save}
           onChange={(e) => this.setState({ save:  e })}/>
+          <div class="buttons">
+            <button class='btn btn-primary pull-right btn-large'
+              onClick={this.onCancel.bind(this)}>
+                Cancel
+            </button>
+          </div>
       </div>
     );
   }
@@ -209,7 +243,7 @@ class SessionList extends Component {
   }
 
   deleteSession() {
-    this.setState({confirmDelete: false});
+    this.setState({ confirmDelete: false });
     auth.deleteSessionByCode(this.state.deleteSessionCode).then(() => {
       this.loadSessions();
     });
