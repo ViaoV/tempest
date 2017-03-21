@@ -45,4 +45,4 @@ scriptEngine.on('script.notify', (script, msg) => {
   });
 });
 
-scriptEngine.on('command', (msg) => session.send(msg + '\n'));
+scriptEngine.on('script.command', (script, msg) => session.send(msg + '\n'));

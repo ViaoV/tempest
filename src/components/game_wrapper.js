@@ -40,7 +40,6 @@ export default class GameWrapper extends Component {
         <div class='pane-group'>
           {this.renderSidebar()}
           <div class='pane'>{ this.props.children }</div>
-          {this.renderStatusBar()}
         </div>
       </div>
     );
@@ -95,32 +94,29 @@ export default class GameWrapper extends Component {
               <i class='fa fa-terminal'></i>
               Game
             </Link>
+          </nav>
+          <nav class='nav-group'>
             <h5 class='nav-group-title'>Tools</h5>
             <Link to='/scripts' className={this.activeClass.bind(this)('/scripts')}>
               <i class='fa fa-code'></i>
               Scripts
             </Link>
-            <a class='nav-group-item'>
-              <i class='fa fa-link'></i> Triggers
-            </a>
             <Link to='/map' className={this.activeClass.bind(this)('/map')}>
             <span class='icon icon-map'></span>
               Map
             </Link>
           </nav>
-            <h5 class='nav-group-title'>Active Scripts</h5>
+          <nav class='nav-group'>
+            <h5 className='nav-group-title'>Active Scripts</h5>
             {this.state.activeScripts.map(i=>
-              <a onClick={() => scriptEngine.unloadScript(i)} class='nav-group-item'>
+              <a onClick={() => scriptEngine.unloadScript(i)} className='nav-group-item'>
                 <i class='fa fa-circle'></i> {i}
               </a>
             )}
+          </nav>
+          <nav class='nav-group'>
             <h5 class='nav-group-title'>Configuration</h5>
-            <a class='nav-group-item'>
-              <i class='icon icon-mute'></i> Ignores
-            </a>
-            <a class='nav-group-item'>
-              <i class='fa fa-paint-brush'></i> Highlights
-            </a>
+          </nav>
         </div>
       );
     }

@@ -2,6 +2,7 @@ import Inferno from 'inferno';
 import Component from 'inferno-component';
 
 import '../css/modal.css';
+import '../css/modal-effect.css';
 
 export class PromptModal extends Component {
 
@@ -56,7 +57,6 @@ export class PromptModal extends Component {
         <button class='btn btn-default' onClick={this.close.bind(this)}>
           Cancel
         </button>
-
         <button class='btn btn-primary pull-right' onClick={this.confirm.bind(this)}>
           Save
         </button>
@@ -64,5 +64,49 @@ export class PromptModal extends Component {
       </footer>
     </div>
   );
+  }
+}
+
+
+
+export class ConfirmModal extends Component {
+  constructor(props) {
+    super(props)
+    this.state = { show: false }
+  }
+
+  componentWillReceiveProps(props) {
+    this.setState({show: props.show});
+  }
+
+  hide() {
+    this.props.show = false;
+    this.setState({show: false});
+  }
+
+  confirm() {
+    this.setState({show: false}, () => {
+      if (this.props.confirm) {
+        this.props.confirm();
+      }
+    });
+  }
+
+  render() {
+    const cls = (this.state.show) ? 'modal show' : 'modal';
+    return (
+      <div className='modal-wrapper'>
+        <div className={cls}>
+          <div class='modal-title'>{this.props.title}</div>
+          <p>{this.props.children}</p>
+          <div class='modal-buttons'>
+            <button onClick={this.confirm.bind(this)}
+              class='pull-left btn btn-negative btn-large'>Do It</button>
+            <button onClick={this.hide.bind(this)}
+              class='pull-right btn btn-large'>Nevermind</button>
+          </div>
+        </div>
+      </div>
+    )
   }
 }

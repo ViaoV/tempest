@@ -1,4 +1,5 @@
-const { shell } = require('electron');
+const { app, shell } = require('electron');
+const path = require('path');
 
 const menu = [
   {
@@ -7,7 +8,9 @@ const menu = [
       {
         label: 'Open Data Directory',
         click() {
-          shell.showItemInFolder(app.getPath('userData'));
+          const dir = path.join(app.getPath('userData'), '.');
+          console.log(dir);
+          shell.openItem(dir);
         },
       },
       {
@@ -53,9 +56,11 @@ const menu = [
       {
         label: 'Open Scripts Folder',
         click() {
-          files.scriptsDirectory((scriptsDir) => {
-            shell.showItemInFolder(scriptsDir);
-          });
+          const scriptsFolder = path.join(
+            app.getPath('userData'),
+            'scripts'
+          );
+          shell.openItem(scriptsFolder);
         },
       },
     ],

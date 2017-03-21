@@ -33,12 +33,28 @@ input.form-control:focus {
 .btn {
   padding: 6px 15px;
   text-transform: uppercase;
+  background: #222;
+  color: #fcfcfc;
+  border: none;
+}
+.btn:hover {
+  background: #555;
 }
 
 .btn.btn-primary {
   background: #444;
   border: none;
   color: #fff;
+}
+
+.btn.btn-negative {
+  background: #400;
+  border: none;
+  color: #fff;
+}
+
+.btn.btn-negative:hover {
+  background: #700;
 }
 
 .toolbar .title {
@@ -60,7 +76,7 @@ hr {
 .pane-sm.sidebar {
   background: #121212;
   color: #f5f5f5;
-  border-right: 1px solid #000;
+  border-right: none;
   box-shadow: none;
 
 }
@@ -81,7 +97,8 @@ hr {
 }
 
 .pane {
-  border-color: #000;
+  border-right: none;
+  border-left: none;
   background: #222;
 }
 
