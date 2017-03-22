@@ -10,7 +10,7 @@
   background: #222;
   border-radius: 4px;
   margin: auto auto;
-  margin-top: 25px;
+  margin-top: 5px;
   width: 400px;
   color: #f5f5f5;
 }
@@ -29,51 +29,46 @@
 }
 
 .login .session-list .item {
+  display: inline-block;
   clear: both;
-  height: 32px;
-  line-height: 32px;
-  border-radius: 4px;
+  width: 40%;
   background: #333;
   margin-bottom: 10px;
+  margin-right: 10%;
   color: #f5f5f5;
-  border-bottom: 1px solid #777;
   overflow: hidden;
+  border-radius: 4px;
+  transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 .login .session-list .item .details {
+  padding: 10px 0;
   transition: color .2s;
-  float: left;
-  height: 32px;
   color: #eee;
-  padding: 0 10px;
-  line-height: 32px;
+  text-align: center;
 }
 
 
 .login .session-list .item:hover {
   background: #444;
   color: #fff;
+  -webkit-transform: scale(1.15, 1.15);
+  transform: scale(1.15, 1.15);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
 }
 
-.login .session-list .item .details .name {
-  font-weight: bold;
-  display: inline-block;
-  margin-right: 10px;
-}
-
-.login .session-list .item .tools {
-  transition: background-color 0.5s;
-  float: right;
-  border-left: 1px solid #282828;
+.login .session-list .item .delete {
+  background: #200;
+  background: #200;
+  color: #700;
+  padding: 5px;
   text-align: center;
-  height: 32px;
-  width: 42px;
-  line-height: 32px;
+  transition: background-color 0.5s;
 }
 
-.login .session-list .item .tools:hover {
+.login .session-list .item .delete:hover {
   background: #400;
-  color: #fff;
+  color: #c00;
 }
 
 

@@ -254,12 +254,11 @@ class SessionList extends Component {
       <div>
         <ul class='session-list'>
           {this.state.sessions.map(s =>
-            <div class='item'>
+            <div class='item lift-box'>
               <div class='details' onClick={this.sessionClicked.bind(this, s)}>
-               <span class='name'>{s.get('characterName')}</span>
-               <span class='username'>{s.get('username')}</span>
+               {s.get('characterName')}
               </div>
-             <div class='tools' onClick={this.confirmDelete.bind(this, s)}>
+             <div class='delete' onClick={this.confirmDelete.bind(this, s)}>
               <i class='fa fa-trash'></i>
              </div>
           </div>
