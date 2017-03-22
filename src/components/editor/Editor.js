@@ -2,7 +2,7 @@ import Inferno from 'inferno';
 import Component from 'inferno-component';
 import ace from 'brace';
 import 'brace/mode/coffee';
-import 'brace/theme/github';
+import 'brace/theme/monokai';
 import { scriptEngine } from '../../services/Session';
 import { PromptModal } from '../Modal';
 
@@ -20,9 +20,8 @@ export default class ScriptEditor extends Component {
   componentDidMount() {
     this.editor = ace.edit('script-editor');
     this.editor.getSession().setMode('ace/mode/coffee');
-    this.editor.setTheme('ace/theme/github');
+    this.editor.setTheme('ace/theme/monokai');
     scriptEngine.readScript(this.state.scriptName).then((script) => {
-      console.log(script);
       this.editor.setValue(script, -1);
     });
   }

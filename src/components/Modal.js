@@ -69,7 +69,7 @@ export class PromptModal extends Modal {
         <input type='text' value={this.state.value} onInput={this.valueChange.bind(this)}/>
         <div class='modal-buttons'>
           <button onClick={this.confirm.bind(this)}
-            class='pull-left btn btn-primary btn-large'>Rename</button>
+            class='pull-left btn btn-primary btn-large'>Ok</button>
           <button onClick={this.hide.bind(this)}
             class='pull-right btn btn-large'>Nevermind</button>
         </div>

@@ -2,7 +2,7 @@ import Inferno from 'inferno';
 import Component from 'inferno-component';
 import { Link } from 'inferno-router';
 import { scriptEngine } from '../services/Session';
-import { PromptModal } from './Modal';
+import { PromptModal, ConfirmModal } from './Modal';
 
 import '../css/sub-toolbar.css';
 
@@ -26,10 +26,15 @@ export default class ScriptList extends Component {
     scriptEngine.listScriptNames().then((s) => this.setState({ scripts: s }));
   }
 
-  editScript() {
-    if (!this.state.selectedScript) { return; }
+  editScript(script) {
+    if (!this.state.selectedScript && !script) { return; }
 
-    this.router.push('/scripts/' + this.state.selectedScript);
+    if (script) {
+      this.router.push('/scripts/' + script);
+    } else {
+
+      this.router.push('/scripts/' + this.state.selectedScript);
+    }
   }
 
   runScript() {
@@ -42,6 +47,13 @@ export default class ScriptList extends Component {
   deleteScript() {
     if (!this.state.selectedScript) { return; }
 
+    this.setState({
+      showDeleteConfirm: true,
+    });
+  }
+
+  deleteScriptConfirm() {
+    this.setState({ showDeleteConfirm: false });
     scriptEngine.deleteScript(this.state.selectedScript).then(() => {
       this.loadScripts();
     });
@@ -92,13 +104,21 @@ export default class ScriptList extends Component {
             {this.state.scripts.map(script =>
               <tr
                 className={(this.state.selectedScript == script) ? 'selected' : ''}
-                onClick={() => this.setState({ selectedScript: script })}>
+                onClick={() => this.setState({ selectedScript: script })}
+                onDblClick={this.editScript.bind(this, script)}>
                 <td>{script}</td>
               </tr>
             )}
           </tbody>
         </table>
         </div>
+        <ConfirmModal
+          show={this.state.showDeleteConfirm}
+          confirm={this.deleteScriptConfirm.bind(this)}
+          title="Delete Script">
+            Are you sure you want to delete the
+            <strong>{this.state.selectedScript}</strong> script.
+        </ConfirmModal>
       </div>
     );
   }
