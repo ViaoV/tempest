@@ -38,7 +38,6 @@ export default class MapView extends Component {
   }
 
   drawMap() {
-    console.log(this.data.maxX);
     this.stage = new Konva.Stage({
       container: 'map-container',   // Id of container <div>
       width: this.data.maxX - this.data.minX + 40,
@@ -61,9 +60,9 @@ export default class MapView extends Component {
       x: x,
       y: y,
       radius: 5,
-      fill: this.currentNode.id === node.id ? 'purple' : (node.color || 'white'),
-      stroke: 'black',
-      strokeWidth: 1,
+      fill: this.currentNode.id === node.id ? '#00F' : (node.color || '#aaa'),
+      stroke: this.currentNode.id === node.id ? '#F00' : 'black',
+      strokeWidth: this.currentNode.id === node.id ? 3 : 1,
     });
     circle.on('click', this.nodeClick.bind(this, node));
 
@@ -90,7 +89,7 @@ export default class MapView extends Component {
       text: label.text,
       fontSize: 11,
       fontFamily: 'Calibri',
-      fill: 'black',
+      fill: 'white',
     }));
   }
 
