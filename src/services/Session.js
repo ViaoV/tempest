@@ -4,9 +4,9 @@ const MapData = window.require('electron').remote.require('./lib/mapdata');
 const { app }  = window.require('electron').remote.require('electron');
 const path = window.require('electron').remote.require('path');
 
-export const session = new GameSession();
-export const auth = new AuthHandler();
-export const scriptEngine = new ScriptEngine();
+export const session = GameSession;
+export const auth = AuthHandler;
+export const scriptEngine = ScriptEngine;
 scriptEngine.scriptsPath = path.join(app.getPath('userData'), 'scripts');
 export const mapData = new MapData();
 

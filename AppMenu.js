@@ -1,81 +1,91 @@
 const { app, shell } = require('electron');
 const path = require('path');
+const { GameSession } = require('./lib/client');
+
+const osxAppMenu = {
+  label: 'File',
+  submenu: [
+    {
+      label: 'Open Data Folder',
+      click() {
+        const dir = path.join(app.getPath('userData'), '.');
+        shell.openItem(dir);
+      },
+    },
+    {
+      label: 'Open Scripts Folder',
+      click() {
+        const scriptsFolder = path.join(
+          app.getPath('userData'),
+          'scripts'
+        );
+        shell.openItem(scriptsFolder);
+      },
+    },
+    { type: 'separator' },
+    {
+      label: 'Disconnect Session',
+      enabled: false,
+      click() {
+        GameSession.disconnect();
+      },
+    },
+    { type: 'separator' },
+    {
+      role: 'quit',
+    },
+  ],
+};
+
+const editMenu = {
+  label: 'Edit',
+  submenu: [
+    {
+      role: 'undo',
+    },
+    {
+      role: 'redo',
+    },
+    {
+      type: 'separator',
+    },
+    {
+      role: 'cut',
+    },
+    {
+      role: 'copy',
+    },
+    {
+      role: 'paste',
+    },
+    {
+      role: 'pasteandmatchstyle',
+    },
+    {
+      role: 'delete',
+    },
+    {
+      role: 'selectall',
+    },
+  ],
+};
+
+const windowMenu = {
+  role: 'window',
+  submenu: [
+    {
+      role: 'minimize',
+    },
+    {
+      role: 'close',
+    },
+  ],
+};
 
 const menu = [
-  {
-    label: 'Tempest Client',
-    submenu: [
-      {
-        label: 'Open Data Directory',
-        click() {
-          const dir = path.join(app.getPath('userData'), '.');
-          console.log(dir);
-          shell.openItem(dir);
-        },
-      },
-      {
-        role: 'quit',
-      },
-    ],
-  },
-  {
-    label: 'Edit',
-    submenu: [
-      {
-        role: 'undo',
-      },
-      {
-        role: 'redo',
-      },
-      {
-        type: 'separator',
-      },
-      {
-        role: 'cut',
-      },
-      {
-        role: 'copy',
-      },
-      {
-        role: 'paste',
-      },
-      {
-        role: 'pasteandmatchstyle',
-      },
-      {
-        role: 'delete',
-      },
-      {
-        role: 'selectall',
-      },
-    ],
-  },
-  {
-    label: 'Scripts',
-    submenu: [
-      {
-        label: 'Open Scripts Folder',
-        click() {
-          const scriptsFolder = path.join(
-            app.getPath('userData'),
-            'scripts'
-          );
-          shell.openItem(scriptsFolder);
-        },
-      },
-    ],
-  },
-  {
-    role: 'window',
-    submenu: [
-      {
-        role: 'minimize',
-      },
-      {
-        role: 'close',
-      },
-    ],
-  },
+  osxAppMenu,
+  editMenu,
+  windowMenu,
 ];
 
-module.exports = menu;
+module.exports.appMenu = menu;

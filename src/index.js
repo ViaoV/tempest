@@ -15,6 +15,7 @@ const routes = (
   <Router history={ browserHistory }>
     <Route component={ App }>
       <IndexRoute component={Login}></IndexRoute>
+      <Route path="/login" component={Login}/>
       <Route path='/' component={ GameWrapper }>
         <Route path='/game' component={ GameWindow }></Route>
         <Route path='/scripts/:script' component={ ScriptEditor }></Route>

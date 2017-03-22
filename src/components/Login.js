@@ -40,11 +40,22 @@ export default class Login extends Component {
   }
 
   doSessionLogin(s) {
-    this.setState({ loginError: undefined });
+    this.setState({
+      waitShow: true,
+      waitTitle: 'Logging in',
+      loginError: undefined,
+    });
     auth.authenticate(s.get('username'), s.get('password')).then(() => {
       auth.listCharacters().then((characters) => {
+        this.setState({
+          waitTitle: 'Credentials validated. Loading session.',
+        });
         auth.playCharacter(s.get('characterCode')).then((key) => {
           auth.disconnect();
+          this.setState({
+            waitShow: false,
+            waitTitle: '',
+          });
           session.connect(key);
           this.router.push('/game');
         }).catch(this.setLoginError.bind(this));

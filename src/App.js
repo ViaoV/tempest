@@ -1,6 +1,8 @@
 import Inferno from 'inferno';
 import Component from 'inferno-component';
 
+import { session } from './services/Session';
+
 import './css/photon-fills.css';
 import './css/app.css';
 
@@ -9,6 +11,9 @@ class App extends Component {
   constructor(props, { router }) {
     super(props);
     this.router = router;
+    session.on('disconnected', () => {
+      router.push('/login');
+    });
   }
 
   render() {
