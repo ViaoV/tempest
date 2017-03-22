@@ -1,5 +1,6 @@
 const { ipcMain } = require('electron');
 const { app, BrowserWindow, shell, Menu } = require('electron');
+const autoUpdater = require('electron-updater').autoUpdater;
 
 const fs = require('fs');
 const path = require('path');
@@ -18,7 +19,12 @@ app.on('window-all-closed', function () {
   }
 });
 
+autoUpdater.on('update-downloaded', (ev, info) => {
+  autoUpdater.quitAndInstall();
+});
+
 app.on('ready', function () {
+  autoUpdater.checkForUpdates();
   Menu.setApplicationMenu(Menu.buildFromTemplate(appMenu));
   var mainWindow = new BrowserWindow({
     height: 768,

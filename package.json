@@ -1,10 +1,11 @@
 {
   "name": "tempest",
   "productName": "Tempest Client",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "Joe Bellus",
   "private": true,
   "devDependencies": {
+    "electron": "^1.6.1",
     "electron-builder": "^14.5.3",
     "electron-jasmine": "^0.2.0",
     "electron-rebuild": "^1.5.7",
@@ -15,7 +16,7 @@
     "babel-plugin-inferno": "^1.9.0",
     "brace": "^0.10.0",
     "coffee-script": "^1.12.4",
-    "electron": "^1.6.1",
+    "electron-updater": "^1.11.0",
     "eval": "^0.1.2",
     "glob": "^7.1.1",
     "history": "^4.5.1",
@@ -43,19 +44,22 @@
     "appId": "tempest.5sigma.io",
     "asar": true,
     "directories": {
-      "buildResources": "build_resources",
-      "app": "./"
+      "buildResources": "build_resources"
     },
     "files": [
       "**/*",
+      "!**/node_modules/*/{CHANGELOG.md,README.md,README,readme.md,readme,test,__tests__,tests,powered-test,example,examples,*.d.ts}",
+      "!**/{.DS_Store,.git,.hg,.svn,CVS,RCS,SCCS,__pycache__,thumbs.db,.gitignore,.gitattributes,.editorconfig,.flowconfig,.yarn-metadata.json,.idea,appveyor.yml,.travis.yml,circle.yml,npm-debug.log,.nyc_output,yarn.lock,.yarn-integrity}",
+      "!**/node_modules/.bin",
+      "!**/._*",
       "!dist${/*}",
-      "!src/**/*",
+      "!public${/*}",
+      "!src${/*}",
+      "!test${/*}",
       "!build_resources${/*}",
-      "!db/**/*",
       "!log.txt",
       "!yarn.lock",
-      "!Procfile",
-      "build/**/*"
+      "!Procfile"
     ]
   }
 }
