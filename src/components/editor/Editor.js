@@ -49,23 +49,23 @@ export default class ScriptEditor extends Component {
 
   render() {
     return (
-      <div style='width: 100%;height: 100%;overflow: hidden;'>
+      <div class='stack vertical'>
         <PromptModal
           show={this.state.showRenameModal}
           message='Enter a new name for the script'
           value={this.state.scriptName}
           confirm={this.doRename.bind(this)}
           title='Rename Script'/>
-        <div class='sub-toolbar'>
+        <div class='toolbar'>
           <div class='left'>
             <button onClick={this.showRename.bind(this)}>{this.state.scriptName}</button>
           </div>
           <div class='right'>
-            <button onClick={this.close.bind(this)}><i class='fa fa-times'></i> Close</button>
-            <button onClick={this.save.bind(this)}><i class='fa fa-save'></i> Save</button>
+            <button onClick={this.close.bind(this)}><i class='fa fa-times'></i></button>
+            <button onClick={this.save.bind(this)}><i class='fa fa-save'></i></button>
           </div>
         </div>
-        <div id='script-editor' class='sub-toolbar-content'>
+        <div id='script-editor' style="width: 100%; height: 100%;">
         </div>
       </div>
     );

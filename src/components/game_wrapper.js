@@ -4,10 +4,6 @@ import { auth, session, scriptEngine } from '../services/Session';
 import { Link } from 'inferno-router';
 import _ from 'lodash';
 
-import '../css/status-bar.css';
-import '../css/photon-fills.css';
-import '../css/app.css';
-
 export default class GameWrapper extends Component {
   constructor(props, { router }) {
     super(props);
@@ -88,7 +84,7 @@ export default class GameWrapper extends Component {
       return '';
     } else {
       return (
-        <div class='pane-sm sidebar'>
+        <div class='sidebar'>
           <nav class='nav-group'>
             <Link to='/game' className={this.activeClass.bind(this)('/game')}>
               <i class='fa fa-terminal'></i>
@@ -96,7 +92,7 @@ export default class GameWrapper extends Component {
             </Link>
           </nav>
           <nav class='nav-group'>
-            <h5 class='nav-group-title'>Tools</h5>
+            <div class='nav-group-title'>Tools</div>
             <Link to='/scripts' className={this.activeClass.bind(this)('/scripts')}>
               <i class='fa fa-code'></i>
               Scripts
@@ -107,7 +103,7 @@ export default class GameWrapper extends Component {
             </Link>
           </nav>
           <nav class='nav-group'>
-            <h5 className='nav-group-title'>Active Scripts</h5>
+            <div className='nav-group-title'>Active Scripts</div>
             {this.state.activeScripts.map(i=>
               <a onClick={() => scriptEngine.unloadScript(i)} className='nav-group-item'>
                 <i class='fa fa-circle'></i> {i}
@@ -115,7 +111,7 @@ export default class GameWrapper extends Component {
             )}
           </nav>
           <nav class='nav-group'>
-            <h5 class='nav-group-title'>Configuration</h5>
+            <div class='nav-group-title'>Configuration</div>
           </nav>
         </div>
       );

@@ -14,7 +14,7 @@ const browserHistory = createHashHistory();
 const routes = (
   <Router history={ browserHistory }>
     <Route component={ App }>
-      <IndexRoute component={Login}></IndexRoute>
+      <IndexRoute component={GameWrapper}></IndexRoute>
       <Route path="/login" component={Login}/>
       <Route path='/' component={ GameWrapper }>
         <Route path='/game' component={ GameWindow }></Route>

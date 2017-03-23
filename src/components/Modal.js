@@ -1,9 +1,6 @@
 import Inferno from 'inferno';
 import Component from 'inferno-component';
 
-import '../css/modal.css';
-import '../css/modal-effect.css';
-
 class Modal extends Component {
   constructor(props) {
     super(props);
@@ -18,6 +15,9 @@ class Modal extends Component {
   hide() {
     this.props.show = false;
     this.setState({ show: false });
+    if (this.props.cancel) {
+      this.props.cancel();
+    }
   }
 
   backdropClick() {

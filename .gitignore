@@ -16,3 +16,5 @@ log.txt
 .env
 npm-debug.log
 .idea
+
+.sass-cache

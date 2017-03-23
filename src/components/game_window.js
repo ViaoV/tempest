@@ -1,6 +1,5 @@
 import Inferno from 'inferno';
 import Component from 'inferno-component';
-import '../css/game-window.css';
 import { session, scriptEngine } from '../services/Session';
 import $ from 'jquery';
 
@@ -131,8 +130,8 @@ export default class GameWindow extends Component {
 
   render() {
     return (
-      <div class='game-window-container'>
-        <div className='game-window selectable-text'
+      <div class='stack'>
+        <div className='game-window scrollable'
           ref={(el) => this.el = el }>
           {this.state.gameLines.map(i =>
             <GameLine line={i}/>

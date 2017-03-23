@@ -1,0 +1,8 @@
+{
+  "transport": {
+    "repository": "https://github.com/ViaoV/tempest",
+    "module": "github",
+    "token": "",
+    "updatesJsonPath": "./updates.json"
+  }
+}

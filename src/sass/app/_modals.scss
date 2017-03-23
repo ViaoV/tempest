@@ -1,0 +1,80 @@
+$modal-background: $frame-background-color;
+$modal-shadow: rgba(0, 0, 0, .25);
+$modal-border: #101010;
+$modal-title-color: #f5f5f5;
+$modal-message-color: #fcfcfc;
+$modal-button-container-background: #000;
+
+$modal-backdrop-background: rgba(0, 0, 0, .75);
+
+.modal {
+  background: $modal-background;
+  border: 1px solid $modal-border;
+  box-shadow: 1px 1px 3px $modal-shadow;
+  left: calc(50% - 200px);
+  opacity: 0;
+  padding: 25px;
+  position: absolute;
+  top: 25px;
+  transform: translateY(-100%);
+  transition: transform .3s, opacity .3s, visibility 0s;
+  visibility: hidden;
+  width: 400px;
+  z-index: 1000;
+
+  &.show {
+    border-radius: 0 0 3px 3px;
+    opacity: 1;
+    transform: translateY(0%);
+    visibility: visible;
+  }
+
+  .modal-content {
+    padding: 15px 20px;
+  }
+
+  input {
+    display: block;
+    width: 100%;
+  }
+
+  .modal-title {
+    color: $modal-title-color;
+    font-size: 18px;
+    font-weight: 300;
+    text-align: center;
+  }
+
+  p {
+    color: $modal-message-color;
+    font-size: 14px;
+    font-weight: 300;
+    text-align: center;
+  }
+
+  .modal-buttons {
+    background: $modal-button-container-background;
+    clear: both;
+    margin-top: 35px;
+  }
+
+}
+
+.modal-backdrop {
+  background: $modal-backdrop-background;
+  height: 100vh;
+  left: 0;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  transition: visibility 0s, opacity .3s;
+  visibility: hidden;
+  width: 100vw;
+  z-index: 900;
+
+  &.show {
+    opacity: 1;
+    visibility: visible;
+  }
+
+}

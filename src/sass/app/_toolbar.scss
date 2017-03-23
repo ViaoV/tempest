@@ -1,0 +1,39 @@
+$toolbar-height: 45px;
+
+.toolbar {
+  background: $frame-background-color;
+  height: $toolbar-height;
+  line-height: $toolbar-height;
+
+  .right {
+    float: right;
+
+    button {
+      margin-right: 15px;
+    }
+  }
+
+  .left {
+    float: left;
+
+    button {
+      margin-left: 15px;
+    }
+  }
+
+  button {
+    background: transparent;
+    border: 0;
+    color: $dark-color;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 12px;
+    font-weight: bold;
+    outline: none;
+    text-transform: uppercase;
+
+    &:hover {
+      color: $bright-white;
+    }
+  }
+}

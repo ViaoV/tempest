@@ -1,0 +1,45 @@
+@mixin button($color) {
+  background: $color;
+  border: 0;
+  border-radius: 3px;
+  color: $base-button-color;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 6px 15px;
+  text-transform: uppercase;
+  transition: background-color .3s;
+
+  &:hover {
+    background: lighten($color, 20);
+  }
+}
+
+.btn,
+button {
+  @include button($base-button-background);
+
+  &.danger,
+  &.btn-negative {
+    @include button($danger-button-background);
+  }
+
+  &.primary,
+  &.btn-primary {
+    @include button($primary-button-background);
+  }
+}
+
+
+.buttons {
+  @include clearfix;
+  text-align: right;
+
+  .left {
+    float: left;
+  }
+
+  .right {
+    float: right;
+  }
+}

@@ -5,8 +5,6 @@ import ErrorMessage from './ErrorMessage';
 import Switch from './switch';
 import { ConfirmModal, WaitModal, MessageModal } from './Modal';
 
-import '../css/login.css';
-
 export default class Login extends Component {
 
   constructor(props, { router }) {
@@ -95,14 +93,6 @@ export default class Login extends Component {
     if (this.state.step === 'login') {
       content = (
         <div>
-          <LoginForm onLogin={this.doLogin.bind(this)}/>
-          <hr/>
-          <SessionList onSessionSelect={this.doSessionLogin.bind(this)}/>
-          <WaitModal show={this.state.waitShow} title={this.state.waitTitle}>
-            {this.state.waitMessage}
-          </WaitModal>
-          <MessageModal show={this.state.loginError}
-            title="Login Error">Could not login.</MessageModal>
         </div>
       );
     }
@@ -118,11 +108,17 @@ export default class Login extends Component {
 
     return (
       <div class='window-content'>
-        <div class='login-wrapper'>
-          <div className='login clearfix'>
-            <ErrorMessage messsge={this.state.loginError}/>
-            {content}
-          </div>
+        <div class="padded-more">
+          <WaitModal show={this.state.waitShow} title={this.state.waitTitle}>
+            {this.state.waitMessage}
+          </WaitModal>
+          <MessageModal show={this.state.loginError} title="Login Error">
+            Could not login.
+          </MessageModal>
+            <div class="login">
+              <LoginForm onLogin={this.doLogin.bind(this)}/>
+              <SessionList onSessionSelect={this.doSessionLogin.bind(this)}/>
+            </div>
         </div>
       </div>
     );
@@ -169,10 +165,12 @@ class LoginForm extends Component {
           onInput={this.inputChange.bind(this)}
           className='form-control'/>
         </div>
-        <button class='btn btn-primary pull-right btn-large'
-          onClick={this.loginPressed.bind(this)}>
-            Login
-        </button>
+        <div class='buttons'>
+          <button class='btn primary'
+            onClick={this.loginPressed.bind(this)}>
+              Login
+          </button>
+        </div>
       </div>
     );
   }
@@ -263,7 +261,7 @@ class SessionList extends Component {
   render() {
     return (
       <div>
-        <ul class='session-list'>
+        <div class='session-list'>
           {this.state.sessions.map(s =>
             <div class='item lift-box'>
               <div class='details' onClick={this.sessionClicked.bind(this, s)}>
@@ -274,7 +272,7 @@ class SessionList extends Component {
              </div>
           </div>
           )}
-        </ul>
+        </div>
         { this.state.sessions.length == 0 &&
           <p class='no-sessions'>No saved sessions</p>
         }

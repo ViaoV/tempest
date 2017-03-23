@@ -9,6 +9,7 @@
     "electron-builder": "^14.5.3",
     "electron-jasmine": "^0.2.0",
     "electron-rebuild": "^1.5.7",
+    "electron-simple-publisher": "^0.2.6",
     "inferno-scripts": "0.13.2"
   },
   "homepage": "./",
@@ -16,7 +17,7 @@
     "babel-plugin-inferno": "^1.9.0",
     "brace": "^0.10.0",
     "coffee-script": "^1.12.4",
-    "electron-updater": "^1.11.0",
+    "electron-simple-updater": "^1.2.0",
     "eval": "^0.1.2",
     "glob": "^7.1.1",
     "history": "^4.5.1",
@@ -38,7 +39,9 @@
     "eject": "inferno-scripts eject",
     "watch": "nodemon -C -x 'node_modules/inferno-scripts/bin/inferno-scripts.js build' -w ./ -i build",
     "pack": "build --dir",
-    "dist": "build"
+    "dist": "build",
+    "publish": "publish",
+    "release": "yarn build && yarn run dist && npm run publish"
   },
   "build": {
     "appId": "tempest.5sigma.io",
@@ -61,5 +64,8 @@
       "!yarn.lock",
       "!Procfile"
     ]
+  },
+  "updater": {
+    "url": "https://raw.githubusercontent.com/ViaoV/tempest/master/updates.json"
   }
 }
