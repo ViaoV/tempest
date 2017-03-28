@@ -4,10 +4,10 @@ import { mapData } from '../services/Session';
 import { session } from '../services/Session';
 import _ from 'lodash';
 
-import '../css/map.css';
 import 'konva';
 
 var Konva = window.Konva;
+Konva.pixelRatio = 1;
 
 export default class MapView extends Component {
 
@@ -24,10 +24,14 @@ export default class MapView extends Component {
         mapData.loadMap(nodeDetails.mapName).then((data) => {
           this.data = data;
           this.currentNode = data.getNode(nodeDetails.id);
-          setTimeout(this.drawMap.bind(this), 1);
-        });
+          try {
+            this.drawMap();
+          } catch (e) {
+            console.log(e);
+          }
+        }).catch((e) => { console.log(e); });
       }
-    });
+    }).catch((e) => console.log(e));
   }
 
   onComponentWillUnmount() {
@@ -38,6 +42,7 @@ export default class MapView extends Component {
   }
 
   drawMap() {
+    console.time('draw-map');
     this.stage = new Konva.Stage({
       container: 'map-container',   // Id of container <div>
       width: this.data.maxX - this.data.minX + 40,
@@ -46,11 +51,16 @@ export default class MapView extends Component {
     this.nodeLayer = new Konva.Layer();
     this.labelLayer = new Konva.Layer();
     this.arcLayer = new Konva.Layer();
+    console.time('draw-nodes');
     this.data.nodes.forEach(n => this.drawNode(n));
+    console.timeEnd('draw-nodes');
+    console.time('draw-labels');
     this.data.labels.forEach(l => this.drawLabel(l));
+    console.timeEnd('draw-labels');
     this.stage.add(this.arcLayer);
     this.stage.add(this.nodeLayer);
     this.stage.add(this.labelLayer);
+    console.timeEnd('draw-map');
   }
 
   drawNode(node) {
@@ -65,7 +75,6 @@ export default class MapView extends Component {
       strokeWidth: this.currentNode.id === node.id ? 3 : 1,
     });
     circle.on('click', this.nodeClick.bind(this, node));
-
     this.nodeLayer.add(circle);
     (node.arcs || []).forEach((a) => this.drawArc(node, a));
   }
@@ -83,14 +92,15 @@ export default class MapView extends Component {
   drawLabel(label) {
     const x = parseInt(label.x) - this.data.minX + 20 + 2;
     const y = parseInt(label.y) - this.data.minY + 20 + 2;
-    this.labelLayer.add(new Konva.Text({
+    const l = new Konva.Text({
       x: x,
       y: y,
       text: label.text,
       fontSize: 11,
       fontFamily: 'Calibri',
       fill: 'white',
-    }));
+    });
+    this.labelLayer.add(l);
   }
 
   drawArc(src, arc) {
@@ -99,7 +109,7 @@ export default class MapView extends Component {
     }
 
     const dest = this.data.getNode(arc.destId);
-    this.arcLayer.add(new Konva.Line({
+    const a = new Konva.Line({
       points: [
         parseInt(src.x) + 20 - this.data.minX,
         parseInt(src.y) + 20  - this.data.minY,
@@ -110,12 +120,18 @@ export default class MapView extends Component {
       strokeWidth: 0.5,
       lineCap: 'round',
       lineJoin: 'round',
-    }));
+    });
+
+    a.listening(false);
+
+    this.arcLayer.add(a);
   }
 
   render() {
     return (
-      <div id='map-container' className='map'>
+      <div class="stack">
+        <div id='map-container' className='map-container'>
+        </div>
       </div>
     );
   }

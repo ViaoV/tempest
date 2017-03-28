@@ -2,7 +2,7 @@ import Inferno from 'inferno';
 import App from './App';
 import { createHashHistory } from 'history';
 import { Router, Route, IndexRoute, Redirect } from 'inferno-router';
-import GameWindow from './components/game_window';
+import { GameWindow } from './components/GameWindow';
 import ScriptList from './components/ScriptList';
 import MapView from './components/Map';
 import ScriptEditor from './components/editor/Editor';
@@ -14,7 +14,7 @@ const browserHistory = createHashHistory();
 const routes = (
   <Router history={ browserHistory }>
     <Route component={ App }>
-      <IndexRoute component={GameWrapper}></IndexRoute>
+      <IndexRoute component={Login}></IndexRoute>
       <Route path="/login" component={Login}/>
       <Route path='/' component={ GameWrapper }>
         <Route path='/game' component={ GameWindow }></Route>

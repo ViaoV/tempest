@@ -1,15 +1,6 @@
 const { ipcMain } = require('electron');
 const { app, BrowserWindow, shell, Menu } = require('electron');
 
-const updater = require('electron-simple-updater');
-updater.init({
-  url: 'https://raw.githubusercontent.com/ViaoV/tempest/master/updates.json',
-});
-
-updater.on('checking-for-update', function () {
-  console.log('checking update');
-});
-
 const fs = require('fs');
 const path = require('path');
 const url = require('url');

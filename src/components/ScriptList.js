@@ -21,7 +21,7 @@ export default class ScriptList extends Component {
   }
 
   loadScripts() {
-    scriptEngine.listScriptNames().then((s) => this.setState({ scripts: s}));
+    scriptEngine.listScriptNames().then((s) => this.setState({ scripts: s }));
   }
 
   editScript() {
@@ -73,7 +73,7 @@ export default class ScriptList extends Component {
         <ConfirmModal
           show={this.state.showDeleteConfirm}
           confirm={this.deleteScriptConfirm.bind(this)}
-          cancel={() => this.setState({showDeleteConfirm: false})}
+          cancel={() => this.setState({ showDeleteConfirm: false })}
           title="Delete Script">
             Are you sure you want to delete the
             <strong>{this.state.selectedScript}</strong> script.
@@ -82,7 +82,7 @@ export default class ScriptList extends Component {
           show={this.state.showNewModal}
           message='Enter a name for your script'
           confirm={this.newScriptConfirm.bind(this)}
-          cancel={() => this.setState({showNewModal: false})}
+          cancel={() => this.setState({ showNewModal: false })}
           title='New Script'/>
         <div class='toolbar'>
           <div class='left'>

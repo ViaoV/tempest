@@ -6,8 +6,6 @@ import 'brace/theme/monokai';
 import { scriptEngine } from '../../services/Session';
 import { PromptModal } from '../Modal';
 
-import '../../css/sub-toolbar.css';
-
 export default class ScriptEditor extends Component {
   constructor(props, { router }) {
     super(props);

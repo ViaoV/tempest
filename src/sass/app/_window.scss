@@ -28,7 +28,17 @@ $statusbar-height: 30px;
 
     .left {
       float: left;
+    }
 
+    .item {
+      -webkit-app-region: no-drag;
+    }
+
+    .btns {
+      float: left;
+      line-height: 0;
+      padding-top: 3px;
+      padding-left: 8px;
 
     }
 

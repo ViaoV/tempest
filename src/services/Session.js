@@ -1,6 +1,6 @@
 const { GameSession, AuthHandler } = window.require('electron').remote.require('./lib/client');
 const { ScriptEngine } = window.require('electron').remote.require('./lib/script_engine');
-const MapData = window.require('electron').remote.require('./lib/mapdata');
+const { MapData } = window.require('electron').remote.require('./lib/maps');
 const { app }  = window.require('electron').remote.require('electron');
 const path = window.require('electron').remote.require('path');
 
@@ -14,6 +14,11 @@ session.on('message', (msg) => {
   if (msg.stream === 'game') {
     scriptEngine.message(msg.text);
   }
+});
+
+session.on('message.empty', () => {
+  console.log('Send buffer is empty');
+  scriptEngine.nextCommand();
 });
 
 session.on('state', (st) => scriptEngine.setState(st));
@@ -45,4 +50,7 @@ scriptEngine.on('script.notify', (script, msg) => {
   });
 });
 
-scriptEngine.on('script.command', (script, msg) => session.send(msg + '\n'));
+scriptEngine.on('script.command', (script, msg) => {
+  session.send(msg + '\n');
+  console.log('pushing command ' + msg);
+});

@@ -9,9 +9,22 @@ class App extends Component {
 
   constructor(props, { router }) {
     super(props);
+    this.state = {
+      loggedIn: false,
+      cloudConnected: false,
+    };
+
     this.router = router;
+  }
+
+  componentDidMount() {
     session.on('disconnected', () => {
-      router.push('/login');
+      this.router.push('/login');
+      this.setState({ loggedIn: false });
+    });
+
+    session.on('connected', () => {
+      this.setState({ loggedIn: true });
     });
   }
 
@@ -35,6 +48,17 @@ class App extends Component {
     remote.BrowserWindow.getFocusedWindow().close();
   }
 
+  iconCls(icon, flag) {
+    var cls = ['fa', 'fa-' + icon];
+    if (this.state[flag] === true) {
+      cls.push('success');
+    } else {
+      cls.push('danger');
+    }
+
+    return cls.join(' ');
+  }
+
   render() {
     return (
       <div class='window'>
@@ -52,10 +76,10 @@ class App extends Component {
           </div>
           <div class='right'>
             <div class='item'>
-              <i class='fa fa-plug danger'></i>
+              <i className={this.iconCls('plug', 'loggedIn')}></i>
             </div>
             <div class='item'>
-              <i class='fa fa-cloud danger'></i>
+              <i className={this.iconCls('cloud', 'cloudConnected')}></i>
             </div>
           </div>
         </header>

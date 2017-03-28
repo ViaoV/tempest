@@ -28,7 +28,14 @@ textarea {
   border-radius: 3px;
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.06);
   box-sizing: border-box;
+<<<<<<< HEAD
+<<<<<<< HEAD
   color: #fff;
+=======
+>>>>>>> 8371dbc... Added sass styling to start the removal of photonkit
+=======
+  color: #fff;
+>>>>>>> b615f10... Refactored layout using flexboxes
   margin-bottom: 0.75em;
   padding: 0.5em;
   transition: border-color 150ms ease;
@@ -104,10 +111,15 @@ picture {
   max-width: 100%; }
 
 table {
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> bdc2ae6... Added styles for stackable components
   border: 0;
   border-collapse: separate;
   font-size: 12px;
   text-align: left;
+<<<<<<< HEAD
   width: 100%; }
   table thead {
     background-color: #121212; }
@@ -134,6 +146,55 @@ table {
     table th:last-child,
     table td:last-child {
       border-right: 0; }
+=======
+  border-collapse: collapse;
+  margin: 0.75em 0;
+  table-layout: fixed;
+  width: 100%; }
+
+th {
+  border-bottom: 1px solid #a6a6a6;
+  font-weight: 600;
+  padding: 0.75em 0;
+  text-align: left; }
+
+td {
+  border-bottom: 1px solid #ddd;
+  padding: 0.75em 0; }
+
+tr,
+td,
+th {
+  vertical-align: middle; }
+>>>>>>> 8371dbc... Added sass styling to start the removal of photonkit
+=======
+  width: 100%; }
+  table thead {
+    background-color: #121212; }
+  table tr td {
+    background-color: #333;
+    transition: background-color .2s; }
+  table tr:nth-child(even) td {
+    background-color: #2e2e2e; }
+  table tr:hover td {
+    background-color: #4d4d4d; }
+  table tr.selected td {
+    background-color: #595959; }
+  table tr.selected:hover td {
+    background-color: #666666; }
+  table th {
+    font-weight: normal; }
+  table th,
+  table td {
+    overflow: hidden;
+    padding: 2px 15px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer; }
+    table th:last-child,
+    table td:last-child {
+      border-right: 0; }
+>>>>>>> bdc2ae6... Added styles for stackable components
 
 body {
   color: #fff;
@@ -171,18 +232,42 @@ hr {
 
 i.danger {
   color: #700; }
+<<<<<<< HEAD
+<<<<<<< HEAD
+i.success {
+  color: #070; }
+=======
+>>>>>>> 8371dbc... Added sass styling to start the removal of photonkit
+=======
+i.success {
+  color: #070; }
+>>>>>>> c130a18... Moved mapdata into maps module
 
 .window {
   bottom: 0;
   display: flex;
   flex-direction: column;
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+  height: 100%;
+>>>>>>> 8371dbc... Added sass styling to start the removal of photonkit
+=======
+>>>>>>> b615f10... Refactored layout using flexboxes
   left: 0;
   overflow: hidden;
   position: absolute;
   top: 0;
   width: 100%; }
   .window .titlebar {
+<<<<<<< HEAD
+<<<<<<< HEAD
     -webkit-app-region: drag;
+=======
+>>>>>>> 8371dbc... Added sass styling to start the removal of photonkit
+=======
+    -webkit-app-region: drag;
+>>>>>>> 7d224fb... Restyled login screen and app titlebar
     background: #121212;
     color: #fff;
     font-size: 12px;
@@ -198,13 +283,91 @@ i.danger {
       float: right; }
     .window .titlebar .left {
       float: left; }
+<<<<<<< HEAD
+<<<<<<< HEAD
     .window .titlebar .item {
       -webkit-app-region: no-drag;
+=======
+    .window .titlebar .btns {
+      float: left;
+      line-height: 0;
+      padding-top: 3px;
+      padding-left: 8px; }
+      .window .titlebar .btns:hover a {
+        visibility: visible; }
+      .window .titlebar .btns .close {
+        background: #ff5c5c;
+        border: 1px solid #e33e41;
+        border-radius: 50%;
+        display: inline-block;
+        font-size: 9pt;
+        height: 11px;
+        width: 11px; }
+        .window .titlebar .btns .close:active {
+          background: #c14645;
+          border: 1px solid #b03537; }
+          .window .titlebar .btns .close:active .closebutton {
+            color: #4e0002; }
+        .window .titlebar .btns .close .closebutton {
+          color: #820005;
+          cursor: default;
+          visibility: hidden; }
+      .window .titlebar .btns .minimize {
+        background: #ffbd4c;
+        font-size: 9pt;
+        line-height: 11px;
+        margin-left: 4px;
+        width: 11px;
+        height: 11px;
+        border: 1px solid #e09e3e;
+        border-radius: 50%;
+        display: inline-block; }
+        .window .titlebar .btns .minimize:active {
+          background: #c08e38;
+          border: 1px solid #af7c33; }
+          .window .titlebar .btns .minimize:active .minimizebutton {
+            color: #5a2607; }
+        .window .titlebar .btns .minimize .minimizebutton {
+          color: #9a5518;
+          visibility: hidden;
+          cursor: default; }
+      .window .titlebar .btns .zoom {
+        background: #00ca56;
+        font-size: 9pt;
+        line-height: 11px;
+        margin-left: 6px;
+        width: 11px;
+        height: 11px;
+        border: 1px solid #14ae46;
+        border-radius: 50%;
+        display: inline-block; }
+        .window .titlebar .btns .zoom:active {
+          background: #029740;
+          border: 1px solid #128435; }
+          .window .titlebar .btns .zoom:active .zoombutton {
+            color: #003107; }
+        .window .titlebar .btns .zoom .zoombutton {
+          color: #006519;
+          visibility: hidden;
+          cursor: default; }
+    .window .titlebar .item {
+>>>>>>> 8371dbc... Added sass styling to start the removal of photonkit
+=======
+    .window .titlebar .item {
+      -webkit-app-region: no-drag;
+>>>>>>> 7d224fb... Restyled login screen and app titlebar
       color: #999;
       display: inline-block;
       font-size: 12px;
       font-weight: 300;
+<<<<<<< HEAD
+<<<<<<< HEAD
       height: 35px;
+=======
+>>>>>>> 8371dbc... Added sass styling to start the removal of photonkit
+=======
+      height: 35px;
+>>>>>>> 7d224fb... Restyled login screen and app titlebar
       padding: 0 10px;
       transition: color .3s; }
       .window .titlebar .item i {
@@ -213,9 +376,19 @@ i.danger {
       .window .titlebar .item:hover {
         color: #fff; }
   .window .window-content {
+<<<<<<< HEAD
+<<<<<<< HEAD
     flex: 1;
     height: calc(100% - 35px);
     width: 100%; }
+=======
+    flex: 1; }
+>>>>>>> 8371dbc... Added sass styling to start the removal of photonkit
+=======
+    flex: 1;
+    height: calc(100% - 35px);
+    width: 100%; }
+>>>>>>> bdc2ae6... Added styles for stackable components
   .window .statusbar {
     background: #121212;
     color: #fff;
@@ -224,30 +397,67 @@ i.danger {
     line-height: 30px;
     padding: 0 10px; }
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> bdc2ae6... Added styles for stackable components
 .pane-group {
   display: flex;
   flex-direction: row;
   height: 100%;
   width: 100%; }
   .pane-group .pane {
+<<<<<<< HEAD
+<<<<<<< HEAD
     flex: 1; }
+=======
+    flex: 1;
+    height: 100%;
+    width: 100%; }
+>>>>>>> bdc2ae6... Added styles for stackable components
+=======
+    flex: 1; }
+>>>>>>> b615f10... Refactored layout using flexboxes
 
 .sidebar {
   background: #121212;
   color: #eee;
+<<<<<<< HEAD
+<<<<<<< HEAD
   flex: 0;
   padding-top: 15px;
   width: 150px; }
+=======
+  padding-top: 15px;
+  width: 180px; }
+>>>>>>> bdc2ae6... Added styles for stackable components
+=======
+  flex: 0;
+  padding-top: 15px;
+  width: 150px; }
+>>>>>>> b615f10... Refactored layout using flexboxes
 
 .nav-group {
   margin-top: 15px; }
   .nav-group .nav-group-title {
     color: #999;
     display: block;
+<<<<<<< HEAD
+<<<<<<< HEAD
     font-size: 12px;
     padding: 2px 10px;
     text-transform: uppercase;
     user-select: none; }
+=======
+    padding: 2px 10px;
+    text-transform: uppercase; }
+>>>>>>> bdc2ae6... Added styles for stackable components
+=======
+    font-size: 12px;
+    padding: 2px 10px;
+    text-transform: uppercase;
+    user-select: none; }
+>>>>>>> b615f10... Refactored layout using flexboxes
   .nav-group a {
     color: #eee;
     display: block;
@@ -258,6 +468,11 @@ i.danger {
       display: inline-block;
       margin-right: 8px; }
 
+<<<<<<< HEAD
+=======
+>>>>>>> 8371dbc... Added sass styling to start the removal of photonkit
+=======
+>>>>>>> bdc2ae6... Added styles for stackable components
 .modal {
   background: #121212;
   border: 1px solid #101010;
@@ -318,7 +533,14 @@ button {
   border: 0;
   border-radius: 3px;
   color: #fcfcfc;
+<<<<<<< HEAD
+<<<<<<< HEAD
   display: inline-block;
+=======
+>>>>>>> 8371dbc... Added sass styling to start the removal of photonkit
+=======
+  display: inline-block;
+>>>>>>> bdc2ae6... Added styles for stackable components
   font-size: 14px;
   font-weight: bold;
   padding: 6px 15px;
@@ -334,7 +556,14 @@ button {
     border: 0;
     border-radius: 3px;
     color: #fcfcfc;
+<<<<<<< HEAD
+<<<<<<< HEAD
     display: inline-block;
+=======
+>>>>>>> 8371dbc... Added sass styling to start the removal of photonkit
+=======
+    display: inline-block;
+>>>>>>> bdc2ae6... Added styles for stackable components
     font-size: 14px;
     font-weight: bold;
     padding: 6px 15px;
@@ -351,7 +580,14 @@ button {
     border: 0;
     border-radius: 3px;
     color: #fcfcfc;
+<<<<<<< HEAD
+<<<<<<< HEAD
     display: inline-block;
+=======
+>>>>>>> 8371dbc... Added sass styling to start the removal of photonkit
+=======
+    display: inline-block;
+>>>>>>> bdc2ae6... Added styles for stackable components
     font-size: 14px;
     font-weight: bold;
     padding: 6px 15px;
@@ -373,10 +609,23 @@ button {
   .buttons .right {
     float: right; }
 
+<<<<<<< HEAD
+<<<<<<< HEAD
 .toolbar {
   background: #121212;
   height: 45px;
   line-height: 45px; }
+=======
+.toolbar {
+  background: #121212;
+  height: 45px;
+<<<<<<< HEAD
+  line-height: 45px;
+  width: 100%; }
+>>>>>>> bdc2ae6... Added styles for stackable components
+=======
+  line-height: 45px; }
+>>>>>>> b615f10... Refactored layout using flexboxes
   .toolbar .right {
     float: right; }
     .toolbar .right button {
@@ -398,6 +647,10 @@ button {
     .toolbar button:hover {
       color: #fff; }
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> b615f10... Refactored layout using flexboxes
 .stack {
   display: flex;
   flex: 1;
@@ -409,6 +662,16 @@ button {
     flex: 1;
     overflow-x: hidden;
     overflow-y: scroll; }
+<<<<<<< HEAD
+<<<<<<< HEAD
+    .stack .scrollable.both {
+      overflow-x: scroll; }
+=======
+>>>>>>> b615f10... Refactored layout using flexboxes
+=======
+    .stack .scrollable.both {
+      overflow-x: scroll; }
+>>>>>>> c130a18... Moved mapdata into maps module
 
 .scrollable::-webkit-scrollbar {
   width: 8px; }
@@ -424,6 +687,13 @@ button {
   border-radius: 4px;
   background: #000; }
 
+<<<<<<< HEAD
+=======
+>>>>>>> 8371dbc... Added sass styling to start the removal of photonkit
+=======
+>>>>>>> bdc2ae6... Added styles for stackable components
+=======
+>>>>>>> b615f10... Refactored layout using flexboxes
 .login {
   background: #202020;
   border-radius: 4px;
@@ -486,6 +756,10 @@ button {
       content: "";
       display: block; }
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> b615f10... Refactored layout using flexboxes
 .game-window {
   background: #000;
   color: #999;
@@ -612,4 +886,25 @@ button {
       .status-bars .bar.stamina .progress {
         background: #990; }
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> c130a18... Moved mapdata into maps module
+.map-wrapper {
+  flex: 1;
+  height: 100%;
+  overflow-x: scroll;
+  overflow-y: scroll;
+  width: 100%; }
+  .map-wrapper .map-container {
+    height: auto;
+    width: auto; }
+
+<<<<<<< HEAD
+=======
+>>>>>>> 8371dbc... Added sass styling to start the removal of photonkit
+=======
+>>>>>>> b615f10... Refactored layout using flexboxes
+=======
+>>>>>>> c130a18... Moved mapdata into maps module
 /*# sourceMappingURL=main.css.map */

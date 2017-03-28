@@ -1,8 +1,9 @@
 const { ScriptEngine, Script }  = require('../../../lib/script_engine');
 const fs = require('fs');
 
+ScriptEngine.scriptsPath = '.';
+
 describe('Script loading', () => {
-  const engine = new ScriptEngine('./');
   beforeEach((done) => {
     fs.writeFile('test2.coffee', `
       func = (count) ->
@@ -16,7 +17,7 @@ describe('Script loading', () => {
   });
 
   it('should read coffeescript files', (done) => {
-    engine.readScript('test2')
+    ScriptEngine.readScript('test2')
       .then((script) => {
         expect(script).not.toBe(undefined);
         done();
@@ -28,12 +29,12 @@ describe('Script loading', () => {
   });
 
   it('should load script file', (done) => {
-      engine.loadScript('test2');
-      engine.on('script.loaded', (script) => {
+      ScriptEngine.loadScript('test2');
+      ScriptEngine.on('script.loaded', (script) => {
         expect(script.name).toBe('test2');
         done();
       });
-      engine.on('script.error', (e) => {
+      ScriptEngine.on('script.error', (e) => {
         expect(e).toBe(undefined);
         done();
       });
@@ -48,24 +49,22 @@ describe('event', () => {
 
   describe('started', () => {
     it('should fire on script add', (done) => {
-      const engine = new ScriptEngine('./');
-      engine.on('script.started', (script) => {
+      ScriptEngine.on('script.started', (script) => {
         expect(script).not.toBe(undefined);
         done();
       });
-      engine.addScript(new Script('test', `p "test"`));
+      ScriptEngine.addScript(new Script('test', `p "test"`));
     });
   });
 
   describe('command', () => {
 
     it('should bubble from script', (done) => {
-      const engine = new ScriptEngine('./');
-      engine.on('script.command', (script, msg) => {
+      ScriptEngine.on('script.command', (script, msg) => {
         expect(msg).toBe('test');
         done();
       });
-      engine.addScript(new Script('test', `p "test"`));
+      ScriptEngine.addScript(new Script('test', `p "test"`));
     });
 
   });
@@ -73,12 +72,11 @@ describe('event', () => {
   describe('notify', () => {
 
     it('should bubble from script', (done) => {
-      const engine = new ScriptEngine('./');
-      engine.on('script.notify', (script, msg) => {
+      ScriptEngine.on('script.notify', (script, msg) => {
         expect(msg).toBe('test');
         done();
       });
-      engine.addScript(new Script('test', `notify "test"`));
+      ScriptEngine.addScript(new Script('test', `notify "test"`));
     });
 
   });
@@ -86,12 +84,11 @@ describe('event', () => {
   describe('print', () => {
 
     it('should bubble from script', (done) => {
-      const engine = new ScriptEngine('./');
-      engine.on('script.print', (script, msg) => {
+      ScriptEngine.on('script.print', (script, msg) => {
         expect(msg).toBe('test');
         done();
       });
-      engine.addScript(new Script('test', `print "test"`));
+      ScriptEngine.addScript(new Script('test', `print "test"`));
     });
 
   });
@@ -101,11 +98,10 @@ describe('event', () => {
 describe('setState', () => {
 
   it('should set script states', () => {
-    const engine = new ScriptEngine('./');
     const state = { test: 123 };
-    engine.addScript(new Script('test', `print "test"`));
-    engine.setState(state);
-    expect(engine.scripts[0].state == state);
+    ScriptEngine.addScript(new Script('test', `print "test"`));
+    ScriptEngine.setState(state);
+    expect(ScriptEngine.scripts[0].state == state);
   });
 
 });
@@ -113,13 +109,12 @@ describe('setState', () => {
 describe('message', () => {
 
   it('should pass to script', (done) => {
-    const engine = new ScriptEngine('./');
-    engine.on('script.command', (script, msg) => {
+    ScriptEngine.on('script.command', (script, msg) => {
       expect(msg).toBe('test');
       done();
     });
-    engine.on('script.started', (s) => { engine.message('test'); });
-    engine.addScript(new Script('test', `next "test", -> p("test")`));
+    ScriptEngine.on('script.started', (s) => { ScriptEngine.message('test'); });
+    ScriptEngine.addScript(new Script('test', `next "test", -> p("test")`));
   });
 
 });
