@@ -21,7 +21,7 @@ export default class ScriptList extends Component {
   }
 
   loadScripts() {
-    scriptEngine.listScriptNames().then((s) => this.setState({ scripts: s }));
+    scriptEngine.listScripts().then((s) => this.setState({ scripts: s }));
   }
 
   editScript() {
@@ -33,7 +33,7 @@ export default class ScriptList extends Component {
   runScript() {
     if (!this.state.selectedScript) { return; }
 
-    scriptEngine.loadScript(this.state.selectedScript);
+    scriptEngine.loadScript(this.state.selectedScript.filename);
     this.router.push('/game');
   }
 
@@ -57,7 +57,19 @@ export default class ScriptList extends Component {
   }
 
   selectScript(script) {
-    this.setState({ selectedScript: script });
+    this.setState({ selectedScript: script.name });
+  }
+
+  rowCls(script) {
+    if (!this.state.selectedScript) {
+      return '';
+    }
+
+    if (this.state.selectedScript === script.name) {
+      return 'selected';
+    }
+
+    return '';
   }
 
   newScriptConfirm(val) {
@@ -102,10 +114,11 @@ export default class ScriptList extends Component {
             <tbody>
               {this.state.scripts.map(script =>
                 <tr
-                  className={(this.state.selectedScript == script) ? 'selected' : ''}
+                  className={this.rowCls(script)}
                   onClick={this.selectScript.bind(this, script)}
                   onDblClick={this.editScript.bind(this, script)}>
-                  <td>{script}</td>
+                  <td>{script.name}</td>
+                  <td>{script.format}</td>
                 </tr>
               )}
             </tbody>

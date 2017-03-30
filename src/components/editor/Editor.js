@@ -17,10 +17,14 @@ export default class ScriptEditor extends Component {
 
   componentDidMount() {
     this.editor = ace.edit('script-editor');
-    this.editor.getSession().setMode('ace/mode/coffee');
-    this.editor.setTheme('ace/theme/monokai');
     scriptEngine.readScript(this.state.scriptName).then((script) => {
-      this.editor.setValue(script, -1);
+      console.log(script);
+      if (script.type == 'Coffee Script') {
+        this.editor.getSession().setMode('ace/mode/coffee');
+      }
+
+      this.editor.setTheme('ace/theme/monokai');
+      this.editor.setValue(script.data, -1);
     });
   }
 

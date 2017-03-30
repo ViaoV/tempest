@@ -3,7 +3,7 @@ import Component from 'inferno-component';
 
 import { session, scriptEngine } from '../../services/Session';
 
-export default class ResourceBars extends Component {
+export default class GameInput extends Component {
   constructor(props) {
     super(props);
     this.state = {

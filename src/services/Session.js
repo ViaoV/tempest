@@ -24,9 +24,10 @@ session.on('message.empty', () => {
 session.on('state', (st) => scriptEngine.setState(st));
 
 scriptEngine.on('script.error', (script, msg) => {
+  var scriptName = (script) ? script.name : '*unknown*';
   session.addMessage({
     stream: 'game',
-    text: '[' + script.name + '] - ' + msg + '\n',
+    text: '[' + scriptName + '] - ' + msg + '\n',
     style: 'script-error', });
 });
 
