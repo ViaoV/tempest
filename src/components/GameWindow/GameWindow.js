@@ -1,6 +1,6 @@
 import Inferno from 'inferno';
 import Component from 'inferno-component';
-import { session, scriptEngine } from '../../services/Session';
+import { session, scriptEngine, settings } from '../../services/Session';
 import $ from 'jquery';
 import ResourceBars from './ResourceBars';
 import GameInput from './GameInput';
@@ -48,6 +48,13 @@ export class GameWindow extends Component {
   }
 
   render() {
+    var resourceBars = '';
+    if (settings.get('game.resourceBars') === true) {
+      resourceBars = (
+        <ResourceBars resources={this.state.gameState.resources} />
+      );
+    }
+
     return (
       <div class='stack'>
         <div className='game-window scrollable'
@@ -56,7 +63,7 @@ export class GameWindow extends Component {
             <GameLine line={i}/>
           )}
         </div>
-        <ResourceBars resources={this.state.gameState.resources} />
+        {resourceBars}
         <GameInput
           roundTimeEnd={this.state.gameState.roundTimeEnd}
           roundTimeSeconds={this.state.gameState.roundTimeSeconds}

@@ -30,34 +30,43 @@ export class SideMenu extends Component {
   render() {
     return (
       <div class='sidebar'>
-        <nav class='nav-group'>
-          <Link to='/game' className={this.activeClass.bind(this)('/game')}>
-            <i class='fa fa-terminal'></i>
-            Game
-          </Link>
-        </nav>
-        <nav class='nav-group'>
-          <div class='nav-group-title'>Tools</div>
-          <Link to='/scripts' className={this.activeClass.bind(this)('/scripts')}>
-            <i class='fa fa-code'></i>
-            Scripts
-          </Link>
-          <Link to='/map' className={this.activeClass.bind(this)('/map')}>
-            <i class='fa fa-map-o'></i>
-            Map
-          </Link>
-        </nav>
-        <nav class='nav-group'>
-          <div className='nav-group-title'>Active Scripts</div>
-          {this.state.activeScripts.map(i=>
-            <a onClick={() => scriptEngine.unloadScript(i)} className='nav-group-item'>
-              <i class='fa fa-circle'></i> {i}
-            </a>
-          )}
-        </nav>
-        <nav class='nav-group'>
-          <div class='nav-group-title'>Configuration</div>
-        </nav>
+        <div class='stack'>
+          <div class="nav">
+            <nav class='nav-group'>
+              <Link to='/game' className={this.activeClass.bind(this)('/game')}>
+                <i class='fa fa-terminal'></i>
+                Game
+              </Link>
+            </nav>
+            <nav class='nav-group'>
+              <div class='nav-group-title'>Tools</div>
+              <Link to='/scripts' className={this.activeClass.bind(this)('/scripts')}>
+                <i class='fa fa-code'></i>
+                Scripts
+              </Link>
+              <Link to='/map' className={this.activeClass.bind(this)('/map')}>
+                <i class='fa fa-map-o'></i>
+                Map
+              </Link>
+            </nav>
+            <nav class='nav-group'>
+              <div className='nav-group-title'>Active Scripts</div>
+              {this.state.activeScripts.map(i=>
+                <a onClick={() => scriptEngine.unloadScript(i)} className='nav-group-item'>
+                  <i class='fa fa-circle'></i> {i}
+                </a>
+              )}
+            </nav>
+          </div>
+          <div class="bottom-bar">
+            <nav class='nav-group'>
+              <Link to='/settings' className={this.activeClass.bind(this)('/settings')}>
+                <i class='fa fa-cog'></i>
+                Settings
+              </Link>
+            </nav>
+          </div>
+        </div>
       </div>
     );
   }

@@ -17,6 +17,7 @@
     "babel-plugin-inferno": "^1.9.0",
     "brace": "^0.10.0",
     "coffee-script": "^1.12.4",
+    "electron-settings": "^3.0.7",
     "electron-simple-updater": "^1.2.0",
     "eval": "^0.1.2",
     "glob": "^7.1.1",

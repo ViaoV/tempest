@@ -1,14 +1,17 @@
 const { GameSession, AuthHandler } = window.require('electron').remote.require('./lib/client');
-const { ScriptEngine } = window.require('electron').remote.require('./lib/script_engine');
+const { ScriptEngine } = window.require('electron').remote.require('./lib/ScriptEngine');
 const { MapData } = window.require('electron').remote.require('./lib/maps');
 const { app }  = window.require('electron').remote.require('electron');
 const path = window.require('electron').remote.require('path');
+const { Settings } = window.require('electron').remote.require('./lib/Settings');
 
 export const session = GameSession;
 export const auth = AuthHandler;
 export const scriptEngine = ScriptEngine;
-scriptEngine.scriptsPath = path.join(app.getPath('userData'), 'scripts');
+export const settings = Settings;
 export const mapData = new MapData();
+
+scriptEngine.scriptsPath = path.join(app.getPath('userData'), 'scripts');
 
 session.on('message', (msg) => {
   if (msg.stream === 'game') {
@@ -45,10 +48,12 @@ scriptEngine.on('script.notify', (script, msg) => {
     text: script.name + ': ' + msg + '\n',
     style: 'script-notify',
   });
-  new Notification('Tempest Client', {
-    title: script.name,
-    body: script.name + ': ' + msg,
-  });
+  if (Settings.get('notifications.scripts') === true) {
+    new Notification('Tempest Client', {
+      title: script.name,
+      body: script.name + ': ' + msg,
+    });
+  }
 });
 
 scriptEngine.on('script.command', (script, msg) => {

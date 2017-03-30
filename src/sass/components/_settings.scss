@@ -1,0 +1,68 @@
+$settings-color: #fff;
+$header-separator: #555;
+
+$block-grid: (
+  columns: 2,
+  gutter: 40px,
+);
+
+
+.settings {
+  color: $settings-color;
+  flex: 1;
+  overflow-y: scroll;
+  padding: 15px 25px;
+
+  h2 {
+    border-bottom: 1px solid $header-separator;
+    font-size: 18px;
+    font-weight: lighter;
+    margin-bottom: 25px;
+    margin-top: 25px;
+    padding-bottom: 10px;
+  }
+
+  h3 {
+    color: darken($settings-color, 10);
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+
+  .section {
+    background: $dark-panel-background;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    padding: 15px 20px;
+
+    p {
+      color: darken($settings-color, 15);
+      font-size: 12px;
+      margin-bottom: 10px;
+    }
+  }
+
+  .blocks {
+    display: flex;
+    flex-wrap: wrap;
+
+    .section {
+      display: flex;
+      flex-direction: column;
+      margin-right: 30px;
+
+      h3 {
+        flex: 0;
+      }
+
+      p {
+        display: block;
+        flex: 1;
+        margin: auto;
+        margin-bottom: 20px;
+        width: 250px;
+      }
+    }
+  }
+}
