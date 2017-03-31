@@ -111,6 +111,7 @@ export default class GameInput extends Component {
   }
 
   render() {
+    console.log(this.roundTimePercent);
     return (
       <div class='game-input'>
         <input

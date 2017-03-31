@@ -77,7 +77,7 @@ export class GameWindow extends Component {
         <GameInput
           roundTimeEnd={this.state.gameState.roundTimeEnd}
           roundTimeSeconds={this.state.gameState.roundTimeSeconds}
-          gameTime={this.state.gameState.time}/>
+          time={this.state.gameState.time}/>
       </div>
     );
   }
