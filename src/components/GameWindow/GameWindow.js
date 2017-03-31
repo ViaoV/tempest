@@ -4,6 +4,7 @@ import { session, scriptEngine, settings } from '../../services/Session';
 import $ from 'jquery';
 import ResourceBars from './ResourceBars';
 import GameInput from './GameInput';
+import StatusIndicationBar from './StatusIndicationBar';
 
 class GameLine extends Component{
   render() {
@@ -24,6 +25,7 @@ export class GameWindow extends Component {
       inputText: '',
       gameState: {
         resources: {},
+        indicators: {},
       },
     };
 
@@ -55,6 +57,13 @@ export class GameWindow extends Component {
       );
     }
 
+    var statusIndicationBar = '';
+    if (settings.get('game.statusIndicators') === true) {
+      statusIndicationBar = (
+        <StatusIndicationBar indicators={this.state.gameState.indicators} />
+      );
+    }
+
     return (
       <div class='stack'>
         <div className='game-window scrollable'
@@ -63,6 +72,7 @@ export class GameWindow extends Component {
             <GameLine line={i}/>
           )}
         </div>
+        {statusIndicationBar}
         {resourceBars}
         <GameInput
           roundTimeEnd={this.state.gameState.roundTimeEnd}
