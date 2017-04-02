@@ -1,0 +1,205 @@
+$default-status-progress-color: #fff;
+$game-window-background: #000;
+$game-window-color: #999;
+
+$script-print-color: #fff;
+$script-error-color: #fff;
+$script-error-background: #500;
+
+$speech-color: #0c0;
+$room-name-color: #fff;
+$room-name-background: #225;
+$direction-color: #fff;
+$user-color: #555;
+$notify-color: #fff;
+$notify-background: #550;
+
+$input-background: #444;
+$input-color: #fff;
+
+
+@mixin status-bar($bg, $fg, $text-color: $default-status-progress-color) {
+  background: $bg;
+
+  .progress {
+    background: $fg;
+  }
+}
+
+.game-window {
+  background: $game-window-background;
+  color: $game-window-color;
+  font-family: monospace;
+  font-weight: normal;
+  height: calc(100% - 45px);
+  overflow-x: hidden;
+  overflow-y: scroll;
+  padding: 15px;
+  padding-bottom: 55px;
+  unicode-bidi: embed;
+  white-space: pre-wrap;
+
+  .direction {
+    color: $direction-color;
+    font-weight: bold;
+  }
+
+  .speech {
+    color: $speech-color;
+    font-weight: bold;
+  }
+
+  .roomName {
+    color: $room-name-color;
+    background: $room-name-background;
+    font-weight: bold;
+    display: block;
+    padding: 2px 5px;
+  }
+
+  .user-cmd {
+    display: block;
+    color: $user-color;
+    font-weight: bold;
+    margin: 10px 0;
+  }
+
+  .script-error {
+    background: $script-error-background;
+    color: $script-error-color;
+    display: block;
+    font-weight: bold;
+    margin: 5px 0;
+    padding: 2px 5px;
+  }
+
+  .script-print {
+    color: $script-print-color;
+    display: block;
+    font-weight: bold;
+    padding: 2px 5px;
+  }
+
+  .script-notify {
+    background: $notify-background;
+    color: $notify-color;
+    display: block;
+    font-weight: bold;
+    margin: 5px 0;
+    padding: 2px 5px;
+  }
+}
+
+.game-input,
+.game-input:focus {
+  background: $input-background;
+  border: 0;
+  box-shadow: none;
+  color: $input-color;
+  font-weight: bold;
+  height: 25px;
+  outline: none;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.game-input .progress {
+  background: #522;
+  height: 25px;
+  left:0;
+  position: absolute;
+  top: 0px;
+  z-index: 0;
+}
+
+.game-input input {
+  background: transparent;
+  border: 0;
+  bottom: 0;
+  box-shadow: none;
+  color: #fff;
+  font-weight: bold;
+  height: 25px;
+  left: 0;
+  outline: none;
+  padding: 2px 8px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 100%;
+  z-index: 10;
+}
+
+.status-bars {
+  height: 20px;
+  background: #000;
+  width: 100%;
+  .bar {
+    display: inline-block;
+    height: 20px;
+    position: relative;
+    width: 25%;
+
+    .text {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      color: $default-status-progress-color;
+      font-weight: bold;
+    }
+
+    .progress {
+      height: 20px;
+    }
+    &.health {
+      @include status-bar(#300, #900);
+    }
+
+    &.mana {
+      @include status-bar(#003, #009);
+      background: #003;
+    }
+
+    &.concentration {
+      @include status-bar(#333, #999, #000);
+    }
+
+    &.stamina {
+      @include status-bar(#330, #990);
+    }
+  }
+}
+
+.status-indicators {
+  background: $game-window-background;
+  height: 35px;
+  text-align: center;
+
+  .status-item {
+    border-radius: 4px;
+    color: #555;
+    display: inline-block;
+    font-size: 12px;
+    margin: 0 6px;
+    padding: 2px 4px;
+
+    &.active {
+      color: #f5f5f5;
+      background: #444;
+
+      &.danger {
+        color: #f50000;
+        background: #400;
+      }
+
+      &.warn {
+        color: #f5f500;
+        background: #440;
+      }
+    }
+
+  }
+}

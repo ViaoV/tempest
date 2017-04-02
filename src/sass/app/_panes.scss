@@ -1,0 +1,52 @@
+.pane-group {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  width: 100%;
+
+  .pane {
+    flex: 1;
+  }
+}
+
+.sidebar {
+  background: $frame-background-color;
+  color: $dim-color;
+  flex: 0;
+  padding: 15px 0;
+
+  .nav {
+    flex: 1;
+  }
+}
+
+
+.nav-group {
+  margin-top: 15px;
+
+  .nav-group-title {
+    color: $dark-color;
+    display: block;
+    font-size: 12px;
+    padding: 2px 10px;
+    text-transform: uppercase;
+    user-select: none;
+  }
+
+  a {
+    color: $dim-color;
+    display: block;
+    padding: 2px 10px;
+    width: 200px;
+
+    &.active {
+      background: $light-panel-background;
+    }
+
+    i {
+      display: inline-block;
+      margin-right: 8px;
+    }
+
+  }
+}

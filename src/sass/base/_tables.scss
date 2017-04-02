@@ -1,0 +1,61 @@
+table {
+  border: 0;
+  border-collapse: separate;
+  font-size: 12px;
+  text-align: left;
+  width: 100%;
+
+  thead {
+    background-color: $frame-background-color;
+  }
+
+  tr {
+
+    td {
+      background-color: $medium-panel-background;
+      transition: background-color .2s;
+    }
+
+    &:nth-child(even) {
+      td {
+        background-color: darken($medium-panel-background, 2);
+      }
+    }
+
+    &:hover {
+      td {
+        background-color: lighten($medium-panel-background, 10);
+      }
+    }
+
+    &.selected {
+      td {
+        background-color: lighten($medium-panel-background, 15);
+      }
+      &:hover {
+        td {
+          background-color: lighten($medium-panel-background, 20);
+        }
+      }
+    }
+
+
+  }
+
+  th {
+    font-weight: normal;
+  }
+
+  th,
+  td {
+    overflow: hidden;
+    padding: 2px 15px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+
+    &:last-child {
+      border-right: 0;
+    }
+  }
+}

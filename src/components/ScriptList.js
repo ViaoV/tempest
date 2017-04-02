@@ -4,8 +4,6 @@ import { Link } from 'inferno-router';
 import { scriptEngine } from '../services/Session';
 import { PromptModal, ConfirmModal } from './Modal';
 
-import '../css/sub-toolbar.css';
-
 export default class ScriptList extends Component {
 
   constructor(props, { router }) {
@@ -23,24 +21,19 @@ export default class ScriptList extends Component {
   }
 
   loadScripts() {
-    scriptEngine.listScriptNames().then((s) => this.setState({ scripts: s }));
+    scriptEngine.listScripts().then((s) => this.setState({ scripts: s }));
   }
 
-  editScript(script) {
-    if (!this.state.selectedScript && !script) { return; }
+  editScript() {
+    if (!this.state.selectedScript) { return; }
 
-    if (script) {
-      this.router.push('/scripts/' + script);
-    } else {
-
-      this.router.push('/scripts/' + this.state.selectedScript);
-    }
+    this.router.push('/scripts/' + this.state.selectedScript);
   }
 
   runScript() {
     if (!this.state.selectedScript) { return; }
 
-    scriptEngine.loadScript(this.state.selectedScript);
+    scriptEngine.loadScript(this.state.selectedScript.filename);
     this.router.push('/game');
   }
 
@@ -64,7 +57,19 @@ export default class ScriptList extends Component {
   }
 
   selectScript(script) {
-    this.setState({ selectedScript: script });
+    this.setState({ selectedScript: script.name });
+  }
+
+  rowCls(script) {
+    if (!this.state.selectedScript) {
+      return '';
+    }
+
+    if (this.state.selectedScript === script.name) {
+      return 'selected';
+    }
+
+    return '';
   }
 
   newScriptConfirm(val) {
@@ -76,49 +81,49 @@ export default class ScriptList extends Component {
 
   render() {
     return (
-      <div style='width: 100%;height: 100%;overflow: hidden;'>
-        <PromptModal
-          show={this.state.showNewModal}
-          message='Enter a name for your script'
-          confirm={this.newScriptConfirm.bind(this)}
-          title='New Script'/>
-        <div class='sub-toolbar'>
-          <div class='left'>
-            <button onClick={this.newScript.bind(this)}>
-              <i class='fa fa-plus'></i> New
-            </button>
-            <button onClick={this.editScript.bind(this)}>
-              <i class='fa fa-edit'></i> edit
-            </button>
-            <button onClick={this.deleteScript.bind(this)}>
-              <i class='fa fa-trash'></i> delete
-            </button>
-          </div>
-          <div class='right'>
-            <button onClick={this.runScript.bind(this)}><i class='fa fa-play'></i> Run</button>
-          </div>
-        </div>
-        <div class='sub-toolbar-content'>
-        <table className='table-striped'>
-          <tbody>
-            {this.state.scripts.map(script =>
-              <tr
-                className={(this.state.selectedScript == script) ? 'selected' : ''}
-                onClick={() => this.setState({ selectedScript: script })}
-                onDblClick={this.editScript.bind(this, script)}>
-                <td>{script}</td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-        </div>
+      <div class='stack'>
         <ConfirmModal
           show={this.state.showDeleteConfirm}
           confirm={this.deleteScriptConfirm.bind(this)}
+          cancel={() => this.setState({ showDeleteConfirm: false })}
           title="Delete Script">
             Are you sure you want to delete the
             <strong>{this.state.selectedScript}</strong> script.
         </ConfirmModal>
+        <PromptModal
+          show={this.state.showNewModal}
+          message='Enter a name for your script'
+          confirm={this.newScriptConfirm.bind(this)}
+          cancel={() => this.setState({ showNewModal: false })}
+          title='New Script'/>
+        <div class='toolbar'>
+          <div class='left'>
+            <button onClick={this.newScript.bind(this)}>
+              <i class='fa fa-plus'></i>
+            </button>
+            <button onClick={this.deleteScript.bind(this)}>
+              <i class='fa fa-trash'></i>
+            </button>
+          </div>
+          <div class='right'>
+            <button onClick={this.runScript.bind(this)}><i class='fa fa-play'></i></button>
+          </div>
+        </div>
+        <div class="scrollable">
+          <table className='table-striped'>
+            <tbody>
+              {this.state.scripts.map(script =>
+                <tr
+                  className={this.rowCls(script)}
+                  onClick={this.selectScript.bind(this, script)}
+                  onDblClick={this.editScript.bind(this, script)}>
+                  <td>{script.name}</td>
+                  <td>{script.format}</td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
     );
   }

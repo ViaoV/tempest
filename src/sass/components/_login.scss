@@ -1,0 +1,89 @@
+$session-item-box-shadow: rbga(0, 0, 0, .5);
+
+.login {
+  background: $dark-panel-background;
+  border-radius: 4px;
+  margin: auto;
+  margin-top: 40px;
+  padding: 20px 25px;
+  width: 400px;
+
+  h1 {
+    font-size: 24px;
+    font-weight: 300;
+  }
+
+  input {
+    &:focus {
+      outline: none;
+    }
+  }
+
+  .session-list {
+    margin-top: 25px;
+
+    .item {
+      background: $medium-panel-background;
+      border-radius: 4px;
+      color: $dim-color;
+      display: inline-block;
+      margin-bottom: 10px;
+      margin-right: 10%;
+      overflow: hidden;
+      transition: transform .6s cubic-bezier(.165, .84, .44, 1), color .6s cubic-bezier(.165, .84, .44, 1);
+      width: 40%;
+
+      .details {
+        padding: 10px 0;
+        text-align: center;
+        transition: color .2s;
+      }
+
+      &:hover {
+        background: $light-panel-background;
+        box-shadow: 0 5px 15px $session-item-box-shadow;
+        color: $white;
+        transform: scale(1.15, 1.15);
+      }
+
+      .delete {
+        background: $danger-button-background;
+        color: $danger-button-color;
+        padding: 5px;
+        text-align: center;
+        transition: background-color .5s;
+
+        &:hover {
+          background: lighten($danger-button-background, 10);
+          color: lighten($danger-button-color, 10);
+        }
+      }
+    }
+  }
+
+  .character-select {
+    margin-bottom: 25px;
+
+    li {
+      background: $dark-panel-background;
+      border-radius: 4px;
+      cursor: pointer;
+      margin: auto;
+      margin-top: 15px;
+      padding: 5px 15px;
+
+      &:hover {
+        background: $medium-panel-background;
+      }
+    }
+  }
+
+  .no-sesisons {
+    text-align: center;
+  }
+
+  .buttons {
+    @include clearfix;
+    margin-top: 25px;
+  }
+}

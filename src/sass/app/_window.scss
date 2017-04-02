@@ -1,0 +1,82 @@
+$titlebar-height: 35px;
+$statusbar-height: 30px;
+
+.window {
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  left: 0;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  width: 100%;
+
+  .titlebar {
+    @include clearfix;
+    -webkit-app-region: drag;
+    background: $frame-background-color;
+    color: $frame-color;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: $titlebar-height;
+    padding: 0 10px;
+    text-align: center;
+
+    .right {
+      float: right;
+    }
+
+    .left {
+      float: left;
+    }
+
+    .item {
+      -webkit-app-region: no-drag;
+    }
+
+    .btns {
+      float: left;
+      line-height: 0;
+      padding-left: 8px;
+      padding-top: 3px;
+
+    }
+
+    .item {
+      -webkit-app-region: no-drag;
+      color: $dark-color;
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 300;
+      height: $titlebar-height;
+      padding: 0 10px;
+      transition: color .3s;
+
+      i {
+        display: inline-block;
+        margin-right: 5px;
+      }
+
+      &:hover {
+        color: $bright-white;
+      }
+    }
+
+  }
+
+  .window-content {
+    flex: 1;
+    height: calc(100% - 35px);
+    width: 100%;
+  }
+
+  .statusbar {
+    background: $frame-background-color;
+    color: $frame-color;
+    font-size: 12px;
+    height: $statusbar-height;
+    line-height: $statusbar-height;
+    padding: 0 10px;
+  }
+
+}

@@ -1,6 +1,5 @@
 import Inferno from 'inferno';
 import Component from 'inferno-component';
-import '../css/switch.css';
 
 export default class Switch extends Component {
   constructor(props) {
