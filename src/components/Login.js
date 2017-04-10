@@ -32,7 +32,7 @@ export default class Login extends Component {
         waitTitle: 'Credentials validated. Retrieving characters.',
       });
       auth.listCharacters().then((characters) => {
-        this.setState({ step: 'characterselect', characters });
+        this.setState({ step: 'characterselect', characters, waitShow: false });
       }).catch(this.setLoginError.bind(this));
     }).catch(this.setLoginError.bind(this));
   }
@@ -81,6 +81,7 @@ export default class Login extends Component {
   setLoginError(e) {
     this.setState({ waitShow: false });
     this.setState({ loginError: true });
+    auth.disconnect();
   }
 
   disconnect() {
@@ -92,17 +93,21 @@ export default class Login extends Component {
     var content = '';
     if (this.state.step === 'login') {
       content = (
-        <div>
+        <div class="login">
+          <LoginForm onLogin={this.doLogin.bind(this)}/>
+          <SessionList onSessionSelect={this.doSessionLogin.bind(this)}/>
         </div>
       );
     }
 
     if (this.state.step === 'characterselect') {
       content = (
-        <CharacterSelect
-          onCancel={this.disconnect.bind(this)}
-          characters={this.state.characters}
-          onSelect={this.doSelect.bind(this)}/>
+        <div class="login">
+          <CharacterSelect
+            onCancel={this.disconnect.bind(this)}
+            characters={this.state.characters}
+            onSelect={this.doSelect.bind(this)}/>
+        </div>
       );
     }
 
@@ -115,10 +120,7 @@ export default class Login extends Component {
           <MessageModal show={this.state.loginError} title="Login Error">
             Could not login.
           </MessageModal>
-            <div class="login">
-              <LoginForm onLogin={this.doLogin.bind(this)}/>
-              <SessionList onSessionSelect={this.doSessionLogin.bind(this)}/>
-            </div>
+          {content}
         </div>
       </div>
     );
